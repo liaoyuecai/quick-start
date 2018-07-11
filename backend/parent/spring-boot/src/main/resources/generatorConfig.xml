@@ -32,7 +32,7 @@
             targetPackage     指定生成的model生成所在的包名
             targetProject     指定在该项目下所在的路径
         -->
-        <javaModelGenerator targetPackage="org.domain.bean"
+        <javaModelGenerator targetPackage="org.quick.domain.bean"
                             targetProject="src/main/java">
 
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
@@ -56,14 +56,37 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-        <javaClientGenerator targetPackage="org.domain.dao"
+        <javaClientGenerator targetPackage="org.quick.domain.dao"
                              targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
 
 
-        <table tableName="base_community_builder" domainObjectName="BaseCommunityBuilder"
+        <table tableName="sys_permission" domainObjectName="SysPermission"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"><!--在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法-->
+        </table>
+
+        <table tableName="sys_role" domainObjectName="SysRole"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"><!--在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法-->
+        </table>
+
+        <table tableName="sys_role_permission" domainObjectName="SysRolePermission"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"><!--在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法-->
+        </table>
+
+        <table tableName="sys_user" domainObjectName="SysUser"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"><!--在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法-->
+        </table>
+        <table tableName="sys_user_role" domainObjectName="sysUserRole"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true"><!--在这里，设置从数据库到实体类的对应关系名。且还可以设置是否生成增删查改方法-->
