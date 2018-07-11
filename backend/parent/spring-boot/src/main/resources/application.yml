@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+
+spring:
+  application:
+    name: rass-service
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test2?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong&useSSL=false
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+  mvc:
+    view:
+      suffix: .html
+      prefix: /
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+#  typeAliasesPackage: tk.mapper.model
+  configuration:
+    map-underscore-to-camel-case: true
+
