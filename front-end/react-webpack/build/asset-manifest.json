@@ -1,0 +1,16 @@
+{
+  "vendor.css": "/reactSPA/static/css/0.css",
+  "vendor.js": "/reactSPA/static/js/vendor.5a37885d.chunk.js",
+  "vendor.css.map": "/reactSPA/static/css/0.css.map",
+  "vendor.js.map": "/reactSPA/static/js/vendor.5a37885d.chunk.js.map",
+  "main.js": "/reactSPA/static/js/main.2cb1089a.js",
+  "main.js.map": "/reactSPA/static/js/main.2cb1089a.js.map",
+  "static/media/default-skin.svg": "/reactSPA/static/media/default-skin.b257fa9c.svg",
+  "static/media/baidu_logo.png": "/reactSPA/static/media/baidu_logo.a11828a5.png",
+  "static/media/face.png": "/reactSPA/static/media/face.a0e6c687.png",
+  "static/media/chutian.jpg": "/reactSPA/static/media/chutian.d9543fe0.jpg",
+  "static/media/xiaoying.jpg": "/reactSPA/static/media/xiaoying.e2dedb10.jpg",
+  "static/media/minren.jpg": "/reactSPA/static/media/minren.a392b4dd.jpg",
+  "static/media/sougou_logo.png": "/reactSPA/static/media/sougou_logo.0a9b0227.png",
+  "index.html": "/reactSPA/index.html"
+}
