@@ -20,6 +20,10 @@ public interface SysUserMapper {
 
     SysUser selectByPrimaryKey(String id);
 
+    SysUser selectByUserName(String userName);
+
+    SysUser selectByLoginName(String loginName);
+
     int updateByExampleSelective(@Param("record") SysUser record, @Param("example") SysUserExample example);
 
     int updateByExample(@Param("record") SysUser record, @Param("example") SysUserExample example);

@@ -11,7 +11,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-@MapperScan("org.domain.dao.*.mapper")
+@MapperScan("org.quick.domain.dao")
 public class Application {
 
     @Bean(name = "txManager")

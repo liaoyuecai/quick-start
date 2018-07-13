@@ -1,4 +1,4 @@
-package org.quick.config;
+package org.quick.modules.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,13 +22,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/login")           // 设置登录页面，未登录的用户将会被拦截到该页面
-                .failureForwardUrl("/fail")     //验证失败时访问
-                .successForwardUrl("/index").permitAll().and() // 验证成功时访问
-
+                .loginPage("/auth/login")           // 设置登录页面，未登录的用户将会被拦截到该页面
+                .failureForwardUrl("/auth/fail")     //验证失败时访问
+                .successForwardUrl("/auth/index").permitAll().and() // 验证成功时访问
                 .authorizeRequests()        // 定义哪些URL需要被保护、哪些不需要被保护
-                .antMatchers("/login",// 设置所有人都可以访问登录页面，也可以不设置，反正被拦截了都是到这
-                        "/amchart/**",
+                .antMatchers("/amchart/**",
                         "/bootstrap/**",
                         "/bootstrap-table/**",
                         "/css/**",
@@ -44,7 +42,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().permitAll();
         http.csrf().disable();          // 关闭csrf防护
-        http.logout().logoutSuccessUrl("/login"); // 注销时访问
+        http.logout().logoutSuccessUrl("/auth/login"); // 注销时访问
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
     }
 

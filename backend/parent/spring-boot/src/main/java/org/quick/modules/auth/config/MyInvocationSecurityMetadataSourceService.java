@@ -1,4 +1,4 @@
-package org.quick.config;
+package org.quick.modules.auth.config;
 
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -39,7 +39,7 @@ public class MyInvocationSecurityMetadataSourceService implements
     //此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。如果不在权限表中则放行。
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-
+        System.out.println(111);
 //        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
         if (map == null) loadResourceDefine();
         return null;

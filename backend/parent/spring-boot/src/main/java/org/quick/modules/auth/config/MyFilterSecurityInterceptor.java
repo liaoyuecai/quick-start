@@ -1,4 +1,4 @@
-package org.quick.config;
+package org.quick.modules.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.SecurityMetadataSource;

@@ -1,4 +1,4 @@
-package org.quick.config;
+package org.quick.modules.auth.config;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;

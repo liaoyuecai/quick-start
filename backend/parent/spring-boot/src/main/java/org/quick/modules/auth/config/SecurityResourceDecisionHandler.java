@@ -1,4 +1,4 @@
-package org.quick.config;
+package org.quick.modules.auth.config;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,6 +33,7 @@ public class SecurityResourceDecisionHandler {
      * @return true:有权限访问 false:无权限访问
      */
     public boolean auth(Authentication authentication, HttpServletRequest request) {
+        System.out.println(222);
         String uri = request.getRequestURI().replace(request.getContextPath(), "");
 //        GrantedAuthorityauthentication.getAuthorities()
 //        for (Entry<String, List<GrantedAuthority>> entry : URL_AUTHS.entrySet()) {
