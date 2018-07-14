@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.quick.domain.dao.SysPermissionMapper">
-  <resultMap id="BaseResultMap" type="org.quick.domain.bean.SysPermission">
+<mapper namespace="org.quick.modules.auth.dao.SysPermissionMapper">
+  <resultMap id="BaseResultMap" type="org.quick.modules.auth.bean.SysPermission">
     <constructor>
       <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="permission_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="permission_type" javaType="java.lang.String" jdbcType="CHAR" />
-      <arg column="config" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -70,9 +69,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, permission_name, url, parent_id, permission_type, config
+    id, permission_name, url, parent_id, permission_type
   </sql>
-  <select id="selectByExample" parameterType="org.quick.domain.bean.SysPermissionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="org.quick.modules.auth.bean.SysPermissionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -97,21 +96,19 @@
     delete from sys_permission
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="org.quick.domain.bean.SysPermissionExample">
+  <delete id="deleteByExample" parameterType="org.quick.modules.auth.bean.SysPermissionExample">
     delete from sys_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="org.quick.domain.bean.SysPermission">
+  <insert id="insert" parameterType="org.quick.modules.auth.bean.SysPermission">
     insert into sys_permission (id, permission_name, url, 
-      parent_id, permission_type, config
-      )
+      parent_id, permission_type)
     values (#{id,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{parentId,jdbcType=VARCHAR}, #{permissionType,jdbcType=CHAR}, #{config,jdbcType=VARCHAR}
-      )
+      #{parentId,jdbcType=VARCHAR}, #{permissionType,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.quick.domain.bean.SysPermission">
+  <insert id="insertSelective" parameterType="org.quick.modules.auth.bean.SysPermission">
     insert into sys_permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -128,9 +125,6 @@
       </if>
       <if test="permissionType != null">
         permission_type,
-      </if>
-      <if test="config != null">
-        config,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -149,12 +143,9 @@
       <if test="permissionType != null">
         #{permissionType,jdbcType=CHAR},
       </if>
-      <if test="config != null">
-        #{config,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.quick.domain.bean.SysPermissionExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="org.quick.modules.auth.bean.SysPermissionExample" resultType="java.lang.Long">
     select count(*) from sys_permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -178,9 +169,6 @@
       <if test="record.permissionType != null">
         permission_type = #{record.permissionType,jdbcType=CHAR},
       </if>
-      <if test="record.config != null">
-        config = #{record.config,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -192,13 +180,12 @@
       permission_name = #{record.permissionName,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       parent_id = #{record.parentId,jdbcType=VARCHAR},
-      permission_type = #{record.permissionType,jdbcType=CHAR},
-      config = #{record.config,jdbcType=VARCHAR}
+      permission_type = #{record.permissionType,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="org.quick.domain.bean.SysPermission">
+  <update id="updateByPrimaryKeySelective" parameterType="org.quick.modules.auth.bean.SysPermission">
     update sys_permission
     <set>
       <if test="permissionName != null">
@@ -213,19 +200,15 @@
       <if test="permissionType != null">
         permission_type = #{permissionType,jdbcType=CHAR},
       </if>
-      <if test="config != null">
-        config = #{config,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.quick.domain.bean.SysPermission">
+  <update id="updateByPrimaryKey" parameterType="org.quick.modules.auth.bean.SysPermission">
     update sys_permission
     set permission_name = #{permissionName,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=VARCHAR},
-      permission_type = #{permissionType,jdbcType=CHAR},
-      config = #{config,jdbcType=VARCHAR}
+      permission_type = #{permissionType,jdbcType=CHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

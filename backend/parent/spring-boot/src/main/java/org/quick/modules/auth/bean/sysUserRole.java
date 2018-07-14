@@ -1,4 +1,4 @@
-package org.quick.domain.bean;
+package org.quick.modules.auth.bean;
 
 public class sysUserRole {
     private String id;

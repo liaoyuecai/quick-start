@@ -1,6 +1,8 @@
 package org.quick.modules.auth.config;
 
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +42,7 @@ public class MyInvocationSecurityMetadataSourceService implements
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         System.out.println(111);
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
         if (map == null) loadResourceDefine();
         return null;
         //object 中包含用户请求的request 信息

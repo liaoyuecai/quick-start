@@ -1,9 +1,10 @@
-package org.quick.domain.dao;
+package org.quick.modules.auth.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
-import org.quick.domain.bean.SysRole;
-import org.quick.domain.bean.SysRoleExample;
+import org.quick.modules.auth.bean.SysRole;
+import org.quick.modules.auth.bean.SysRoleExample;
 
 public interface SysRoleMapper {
     long countByExample(SysRoleExample example);
@@ -17,6 +18,8 @@ public interface SysRoleMapper {
     int insertSelective(SysRole record);
 
     List<SysRole> selectByExample(SysRoleExample example);
+
+    List<SysRole> selectByUserId(String userId);
 
     SysRole selectByPrimaryKey(String id);
 

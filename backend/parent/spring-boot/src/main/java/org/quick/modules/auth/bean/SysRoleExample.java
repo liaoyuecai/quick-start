@@ -1,4 +1,4 @@
-package org.quick.domain.bean;
+package org.quick.modules.auth.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -241,6 +241,76 @@ public class SysRoleExample {
 
         public Criteria andRoleNameNotBetween(String value1, String value2) {
             addCriterion("role_name not between", value1, value2, "roleName");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagIsNull() {
+            addCriterion("role_tag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagIsNotNull() {
+            addCriterion("role_tag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagEqualTo(String value) {
+            addCriterion("role_tag =", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagNotEqualTo(String value) {
+            addCriterion("role_tag <>", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagGreaterThan(String value) {
+            addCriterion("role_tag >", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagGreaterThanOrEqualTo(String value) {
+            addCriterion("role_tag >=", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagLessThan(String value) {
+            addCriterion("role_tag <", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagLessThanOrEqualTo(String value) {
+            addCriterion("role_tag <=", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagLike(String value) {
+            addCriterion("role_tag like", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagNotLike(String value) {
+            addCriterion("role_tag not like", value, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagIn(List<String> values) {
+            addCriterion("role_tag in", values, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagNotIn(List<String> values) {
+            addCriterion("role_tag not in", values, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagBetween(String value1, String value2) {
+            addCriterion("role_tag between", value1, value2, "roleTag");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleTagNotBetween(String value1, String value2) {
+            addCriterion("role_tag not between", value1, value2, "roleTag");
             return (Criteria) this;
         }
     }

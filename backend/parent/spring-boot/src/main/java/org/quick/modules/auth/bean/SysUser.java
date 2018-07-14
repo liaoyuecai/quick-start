@@ -1,4 +1,6 @@
-package org.quick.domain.bean;
+package org.quick.modules.auth.bean;
+
+import java.util.Date;
 
 public class SysUser {
     private String id;
@@ -9,17 +11,14 @@ public class SysUser {
 
     private String pwd;
 
-    private String ctime;
+    private Date ctime;
 
-    private Integer isDeleted;
-
-    public SysUser(String id, String username, String loginName, String pwd, String ctime, Integer isDeleted) {
+    public SysUser(String id, String username, String loginName, String pwd, Date ctime) {
         this.id = id;
         this.username = username;
         this.loginName = loginName;
         this.pwd = pwd;
         this.ctime = ctime;
-        this.isDeleted = isDeleted;
     }
 
     public SysUser() {
@@ -58,19 +57,11 @@ public class SysUser {
         this.pwd = pwd == null ? null : pwd.trim();
     }
 
-    public String getCtime() {
+    public Date getCtime() {
         return ctime;
     }
 
-    public void setCtime(String ctime) {
-        this.ctime = ctime == null ? null : ctime.trim();
-    }
-
-    public Integer getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
     }
 }

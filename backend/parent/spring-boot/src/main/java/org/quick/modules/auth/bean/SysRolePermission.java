@@ -1,4 +1,4 @@
-package org.quick.domain.bean;
+package org.quick.modules.auth.bean;
 
 public class SysRolePermission {
     private String id;

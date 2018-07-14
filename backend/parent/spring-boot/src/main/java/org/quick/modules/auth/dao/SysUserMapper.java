@@ -1,9 +1,9 @@
-package org.quick.domain.dao;
+package org.quick.modules.auth.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.quick.domain.bean.SysUser;
-import org.quick.domain.bean.SysUserExample;
+import org.quick.modules.auth.bean.SysUser;
+import org.quick.modules.auth.bean.SysUserExample;
 
 public interface SysUserMapper {
     long countByExample(SysUserExample example);
@@ -19,10 +19,6 @@ public interface SysUserMapper {
     List<SysUser> selectByExample(SysUserExample example);
 
     SysUser selectByPrimaryKey(String id);
-
-    SysUser selectByUserName(String userName);
-
-    SysUser selectByLoginName(String loginName);
 
     int updateByExampleSelective(@Param("record") SysUser record, @Param("example") SysUserExample example);
 

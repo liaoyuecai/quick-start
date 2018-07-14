@@ -1,7 +1,8 @@
 package org.quick.modules.auth.config;
 
-import org.quick.domain.bean.SysUser;
-import org.quick.modules.auth.service.UserService;
+import org.quick.modules.auth.bean.SysRole;
+import org.quick.modules.auth.bean.SysUser;
+import org.quick.modules.auth.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +26,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    UserService userService;
+    AuthService authService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser user = userService.findByLoginName(username);
+        SysUser user = authService.findUserByLoginName(username);
         if (user != null) {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();      //权限列表
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");//新建ADMIN角色的权限
-            grantedAuthorities.add(grantedAuthority);
+            List<SysRole> roles = authService.findRolesByUserId(user.getId());
+            if (roles!=null) {
+                for (SysRole role : roles)
+                    grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleTag()));
+            }
             return new User(user.getUsername(), passwordEncoder.encode(user.getPwd()), grantedAuthorities);//生成系统用户
         } else {
             throw new UsernameNotFoundException("admin: " + username + " do not exist!");

@@ -1,9 +1,9 @@
-package org.quick.domain.dao;
+package org.quick.modules.auth.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.quick.domain.bean.sysUserRole;
-import org.quick.domain.bean.sysUserRoleExample;
+import org.quick.modules.auth.bean.sysUserRole;
+import org.quick.modules.auth.bean.sysUserRoleExample;
 
 public interface sysUserRoleMapper {
     long countByExample(sysUserRoleExample example);

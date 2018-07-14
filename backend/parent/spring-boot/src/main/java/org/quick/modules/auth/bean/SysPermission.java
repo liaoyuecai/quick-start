@@ -1,4 +1,4 @@
-package org.quick.domain.bean;
+package org.quick.modules.auth.bean;
 
 public class SysPermission {
     private String id;
@@ -11,15 +11,12 @@ public class SysPermission {
 
     private String permissionType;
 
-    private String config;
-
-    public SysPermission(String id, String permissionName, String url, String parentId, String permissionType, String config) {
+    public SysPermission(String id, String permissionName, String url, String parentId, String permissionType) {
         this.id = id;
         this.permissionName = permissionName;
         this.url = url;
         this.parentId = parentId;
         this.permissionType = permissionType;
-        this.config = config;
     }
 
     public SysPermission() {
@@ -64,13 +61,5 @@ public class SysPermission {
 
     public void setPermissionType(String permissionType) {
         this.permissionType = permissionType == null ? null : permissionType.trim();
-    }
-
-    public String getConfig() {
-        return config;
-    }
-
-    public void setConfig(String config) {
-        this.config = config == null ? null : config.trim();
     }
 }

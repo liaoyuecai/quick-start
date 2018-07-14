@@ -22,10 +22,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .loginPage("/auth/login")           // 设置登录页面，未登录的用户将会被拦截到该页面
-                .failureForwardUrl("/auth/fail")     //验证失败时访问
-                .successForwardUrl("/auth/index").permitAll().and() // 验证成功时访问
-                .authorizeRequests()        // 定义哪些URL需要被保护、哪些不需要被保护
+                .loginPage("/auth/login")
+                .failureForwardUrl("/auth/fail")
+                .successForwardUrl("/auth/success").permitAll().and()
+                .authorizeRequests()
                 .antMatchers("/amchart/**",
                         "/bootstrap/**",
                         "/bootstrap-table/**",
@@ -36,13 +36,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/layer/**",
                         "/js/**",
                         "/pages/**",
-                        "/plugins/**").permitAll()     // 开放常用静态资源权限，这里的根路径为resources下的static
-                .anyRequest()               // 任何请求,登录后可以访问
+                        "/plugins/**").permitAll()
+                .anyRequest()
                 .authenticated()
                 .and()
                 .logout().permitAll();
-        http.csrf().disable();          // 关闭csrf防护
-        http.logout().logoutSuccessUrl("/auth/login"); // 注销时访问
+        http.csrf().disable();
+        http.logout().logoutSuccessUrl("/auth/login");
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
     }
 

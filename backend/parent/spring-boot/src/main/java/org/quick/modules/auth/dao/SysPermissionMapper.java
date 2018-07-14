@@ -1,9 +1,9 @@
-package org.quick.domain.dao;
+package org.quick.modules.auth.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.quick.domain.bean.SysPermission;
-import org.quick.domain.bean.SysPermissionExample;
+import org.quick.modules.auth.bean.SysPermission;
+import org.quick.modules.auth.bean.SysPermissionExample;
 
 public interface SysPermissionMapper {
     long countByExample(SysPermissionExample example);
