@@ -23,6 +23,32 @@ public class Application {
         return new DataSourceTransactionManager(dataSource);
     }
 
+
+//    @Value("${mongodb.cluster.nodes}")
+//    String mongoNodes;
+//
+//    @Bean(name = "mongoClient")
+//    public MongoClient mongoClient() {
+//        List<ServerAddress> seeds = new ArrayList();
+//        String[] nodes = mongoNodes.split(",");
+//        for (String node : nodes) {
+//            String[] hostData = node.split(":");
+//            ServerAddress serverAddress;
+//            try {
+//                serverAddress = new ServerAddress(hostData[0], Integer.valueOf(hostData[1]));
+//            } catch (Exception e) {
+//                continue;
+//            }
+//            if (serverAddress != null) {
+//                seeds.add(serverAddress);
+//            }
+//        }
+//        MongoClientOptions.Builder options = new MongoClientOptions.Builder();
+//        options.writeConcern(WriteConcern.JOURNALED);
+//        MongoClientOptions build = options.build();
+//        return new MongoClient(seeds, build);
+//    }
+
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
     }
