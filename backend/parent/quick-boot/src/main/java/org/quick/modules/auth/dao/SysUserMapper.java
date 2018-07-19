@@ -1,10 +1,9 @@
 package org.quick.modules.auth.dao;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.quick.modules.auth.bean.SysUser;
 import org.quick.modules.auth.bean.SysUserExample;
-
-import java.util.List;
 
 public interface SysUserMapper {
     long countByExample(SysUserExample example);

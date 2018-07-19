@@ -1,6 +1,7 @@
 package org.quick.modules.auth.service;
 
 
+import org.quick.modules.auth.bean.SysPermission;
 import org.quick.modules.auth.bean.SysRole;
 import org.quick.modules.auth.bean.SysUser;
 
@@ -10,4 +11,6 @@ public interface AuthService {
     SysUser findUserByLoginName(String userName);
 
     List<SysRole> findRolesByUserId(String userId);
+
+    List<SysPermission> findPermissionsByRole(List<String> roleTags);
 }

@@ -3,14 +3,14 @@ package org.quick.modules.auth.bean;
 public class SysRole {
     private String id;
 
-    private String roleName;
+    private String name;
 
-    private String roleTag;
+    private String tag;
 
-    public SysRole(String id, String roleName, String roleTag) {
+    public SysRole(String id, String name, String tag) {
         this.id = id;
-        this.roleName = roleName;
-        this.roleTag = roleTag;
+        this.name = name;
+        this.tag = tag;
     }
 
     public SysRole() {
@@ -25,19 +25,19 @@ public class SysRole {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName == null ? null : roleName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getRoleTag() {
-        return roleTag;
+    public String getTag() {
+        return tag;
     }
 
-    public void setRoleTag(String roleTag) {
-        this.roleTag = roleTag == null ? null : roleTag.trim();
+    public void setTag(String tag) {
+        this.tag = tag == null ? null : tag.trim();
     }
 }

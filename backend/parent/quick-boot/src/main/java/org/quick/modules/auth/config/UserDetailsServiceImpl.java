@@ -3,8 +3,6 @@ package org.quick.modules.auth.config;
 import org.quick.modules.auth.bean.SysRole;
 import org.quick.modules.auth.bean.SysUser;
 import org.quick.modules.auth.service.AuthService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +21,6 @@ import java.util.List;
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     AuthService authService;
@@ -32,18 +29,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SysUser user = authService.findUserByLoginName(username);
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        SysUser user = authService.findUserByLoginName(userName);
         if (user != null) {
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();      //权限列表
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             List<SysRole> roles = authService.findRolesByUserId(user.getId());
             if (roles!=null) {
                 for (SysRole role : roles)
-                    grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleTag()));
+                    grantedAuthorities.add(new SimpleGrantedAuthority(role.getTag()));
             }
-            return new User(user.getUsername(), passwordEncoder.encode(user.getPwd()), grantedAuthorities);//生成系统用户
+            return new User(user.getUserName(), passwordEncoder.encode(user.getPwd()), grantedAuthorities);//生成系统用户
         } else {
-            throw new UsernameNotFoundException("admin: " + username + " do not exist!");
+            throw new UsernameNotFoundException("admin: " + userName + " do not exist!");
         }
     }
 

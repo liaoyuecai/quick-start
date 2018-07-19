@@ -5,20 +5,20 @@ import java.util.Date;
 public class SysUser {
     private String id;
 
-    private String username;
+    private String userName;
 
     private String loginName;
 
     private String pwd;
 
-    private Date ctime;
+    private Date creatTime;
 
-    public SysUser(String id, String username, String loginName, String pwd, Date ctime) {
+    public SysUser(String id, String userName, String loginName, String pwd, Date creatTime) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.loginName = loginName;
         this.pwd = pwd;
-        this.ctime = ctime;
+        this.creatTime = creatTime;
     }
 
     public SysUser() {
@@ -33,12 +33,12 @@ public class SysUser {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public String getLoginName() {
@@ -57,11 +57,11 @@ public class SysUser {
         this.pwd = pwd == null ? null : pwd.trim();
     }
 
-    public Date getCtime() {
-        return ctime;
+    public Date getCreatTime() {
+        return creatTime;
     }
 
-    public void setCtime(Date ctime) {
-        this.ctime = ctime;
+    public void setCreatTime(Date creatTime) {
+        this.creatTime = creatTime;
     }
 }

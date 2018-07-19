@@ -1,10 +1,9 @@
 package org.quick.modules.auth.dao;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.quick.modules.auth.bean.SysRole;
 import org.quick.modules.auth.bean.SysRoleExample;
-
-import java.util.List;
 
 public interface SysRoleMapper {
     long countByExample(SysRoleExample example);
@@ -19,9 +18,9 @@ public interface SysRoleMapper {
 
     List<SysRole> selectByExample(SysRoleExample example);
 
-    List<SysRole> selectByUserId(String userId);
-
     SysRole selectByPrimaryKey(String id);
+
+    List<SysRole> selectByUserId(String id);
 
     int updateByExampleSelective(@Param("record") SysRole record, @Param("example") SysRoleExample example);
 

@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="org.quick.modules.auth.bean.SysRole">
     <constructor>
       <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="role_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="role_tag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tag" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, role_name, role_tag
+    id, name, tag
   </sql>
   <select id="selectByExample" parameterType="org.quick.modules.auth.bean.SysRoleExample" resultMap="BaseResultMap">
     select
@@ -90,11 +90,12 @@
     from sys_role
     where id = #{id,jdbcType=VARCHAR}
   </select>
-  <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="java.lang.String" resultType="org.quick.modules.auth.bean.SysRole">
     select
-    r.id,r.role_name,r.role_tag
+    r.id,r.name,r.tag
     from sys_role r JOIN sys_user_role s ON r.id = s.role_id
-    AND s.user_id = #{userId,jdbcType=VARCHAR}
+    JOIN sys_user u ON  u.id = s.user_id
+    where u.id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sys_role
@@ -107,9 +108,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="org.quick.modules.auth.bean.SysRole">
-    insert into sys_role (id, role_name, role_tag
+    insert into sys_role (id, name, tag
       )
-    values (#{id,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{roleTag,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.quick.modules.auth.bean.SysRole">
@@ -118,22 +119,22 @@
       <if test="id != null">
         id,
       </if>
-      <if test="roleName != null">
-        role_name,
+      <if test="name != null">
+        name,
       </if>
-      <if test="roleTag != null">
-        role_tag,
+      <if test="tag != null">
+        tag,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="roleName != null">
-        #{roleName,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="roleTag != null">
-        #{roleTag,jdbcType=VARCHAR},
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -149,11 +150,11 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleName != null">
-        role_name = #{record.roleName,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleTag != null">
-        role_tag = #{record.roleTag,jdbcType=VARCHAR},
+      <if test="record.tag != null">
+        tag = #{record.tag,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -163,8 +164,8 @@
   <update id="updateByExample" parameterType="map">
     update sys_role
     set id = #{record.id,jdbcType=VARCHAR},
-      role_name = #{record.roleName,jdbcType=VARCHAR},
-      role_tag = #{record.roleTag,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR},
+      tag = #{record.tag,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -172,19 +173,19 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.quick.modules.auth.bean.SysRole">
     update sys_role
     <set>
-      <if test="roleName != null">
-        role_name = #{roleName,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="roleTag != null">
-        role_tag = #{roleTag,jdbcType=VARCHAR},
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.quick.modules.auth.bean.SysRole">
     update sys_role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      role_tag = #{roleTag,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

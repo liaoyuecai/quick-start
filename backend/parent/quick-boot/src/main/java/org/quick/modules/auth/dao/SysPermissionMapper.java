@@ -1,10 +1,9 @@
 package org.quick.modules.auth.dao;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.quick.modules.auth.bean.SysPermission;
 import org.quick.modules.auth.bean.SysPermissionExample;
-
-import java.util.List;
 
 public interface SysPermissionMapper {
     long countByExample(SysPermissionExample example);
@@ -18,6 +17,8 @@ public interface SysPermissionMapper {
     int insertSelective(SysPermission record);
 
     List<SysPermission> selectByExample(SysPermissionExample example);
+
+    List<SysPermission> selectByRole(List<String> list);
 
     SysPermission selectByPrimaryKey(String id);
 

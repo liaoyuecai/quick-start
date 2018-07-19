@@ -2,9 +2,11 @@ package org.quick.modules.auth.service.impl;
 
 
 import org.quick.exception.DataException;
+import org.quick.modules.auth.bean.SysPermission;
 import org.quick.modules.auth.bean.SysRole;
 import org.quick.modules.auth.bean.SysUser;
 import org.quick.modules.auth.bean.SysUserExample;
+import org.quick.modules.auth.dao.SysPermissionMapper;
 import org.quick.modules.auth.dao.SysRoleMapper;
 import org.quick.modules.auth.dao.SysUserMapper;
 import org.quick.modules.auth.service.AuthService;
@@ -22,6 +24,8 @@ public class AuthServiceImpl implements AuthService {
     SysUserMapper userMapper;
     @Autowired
     SysRoleMapper roleMapper;
+    @Autowired
+    SysPermissionMapper permissionMapper;
 
     @Override
     public SysUser findUserByLoginName(String name) {
@@ -38,5 +42,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public List<SysRole> findRolesByUserId(String userId) {
         return roleMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public List<SysPermission> findPermissionsByRole(List<String> roleTags) {
+        return permissionMapper.selectByRole(roleTags);
     }
 }

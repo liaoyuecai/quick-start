@@ -11,19 +11,17 @@ import org.springframework.stereotype.Service;
 import javax.servlet.*;
 import java.io.IOException;
 
-/**
- * Created by yangyibo on 17/1/19.
- */
+
 @Service
-public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
+public class SecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
 
     @Autowired
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     @Autowired
-    public void setMyAccessDecisionManager(MyAccessDecisionManager myAccessDecisionManager) {
-        super.setAccessDecisionManager(myAccessDecisionManager);
+    public void setMyAccessDecisionManager(SecurityAccessDecision securityAccessDecision) {
+        super.setAccessDecisionManager(securityAccessDecision);
     }
 
 
@@ -34,19 +32,14 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         FilterInvocation fi = new FilterInvocation(request, response, chain);
         invoke(fi);
     }
 
 
     public void invoke(FilterInvocation fi) throws IOException, ServletException {
-//fi里面有一个被拦截的url
-//里面调用MyInvocationSecurityMetadataSource的getAttributes(Object object)这个方法获取fi对应的所有权限
-//再调用MyAccessDecisionManager的decide方法来校验用户的权限是否足够
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {
-//执行下一个拦截器
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
         } finally {
             super.afterInvocation(token, null);
@@ -55,7 +48,7 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
 
     @Override
     public void destroy() {
-
+        System.out.println(33333);
     }
 
     @Override

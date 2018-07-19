@@ -3,20 +3,17 @@ package org.quick.modules.auth.bean;
 public class SysPermission {
     private String id;
 
-    private String permissionName;
+    private String name;
 
     private String url;
 
     private String parentId;
 
-    private String permissionType;
-
-    public SysPermission(String id, String permissionName, String url, String parentId, String permissionType) {
+    public SysPermission(String id, String name, String url, String parentId) {
         this.id = id;
-        this.permissionName = permissionName;
+        this.name = name;
         this.url = url;
         this.parentId = parentId;
-        this.permissionType = permissionType;
     }
 
     public SysPermission() {
@@ -31,12 +28,12 @@ public class SysPermission {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getPermissionName() {
-        return permissionName;
+    public String getName() {
+        return name;
     }
 
-    public void setPermissionName(String permissionName) {
-        this.permissionName = permissionName == null ? null : permissionName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getUrl() {
@@ -53,13 +50,5 @@ public class SysPermission {
 
     public void setParentId(String parentId) {
         this.parentId = parentId == null ? null : parentId.trim();
-    }
-
-    public String getPermissionType() {
-        return permissionType;
-    }
-
-    public void setPermissionType(String permissionType) {
-        this.permissionType = permissionType == null ? null : permissionType.trim();
     }
 }

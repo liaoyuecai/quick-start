@@ -1,10 +1,9 @@
 package org.quick.modules.auth.dao;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.quick.modules.auth.bean.SysRolePermission;
 import org.quick.modules.auth.bean.SysRolePermissionExample;
-
-import java.util.List;
 
 public interface SysRolePermissionMapper {
     long countByExample(SysRolePermissionExample example);

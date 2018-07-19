@@ -16,8 +16,6 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)//开启角色验证
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -44,7 +42,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll();
         http.csrf().disable();
         http.logout().logoutSuccessUrl("/auth/login");
-        http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
     }
 
 }

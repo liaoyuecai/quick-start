@@ -4,10 +4,10 @@
   <resultMap id="BaseResultMap" type="org.quick.modules.auth.bean.SysUser">
     <constructor>
       <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="login_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="pwd" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="ctime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="creat_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, login_name, pwd, ctime
+    id, user_name, login_name, pwd, creat_time
   </sql>
   <select id="selectByExample" parameterType="org.quick.modules.auth.bean.SysUserExample" resultMap="BaseResultMap">
     select
@@ -103,10 +103,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="org.quick.modules.auth.bean.SysUser">
-    insert into sys_user (id, username, login_name, 
-      pwd, ctime)
-    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
-      #{pwd,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP})
+    insert into sys_user (id, user_name, login_name, 
+      pwd, creat_time)
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{pwd,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.quick.modules.auth.bean.SysUser">
     insert into sys_user
@@ -114,8 +114,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="username != null">
-        username,
+      <if test="userName != null">
+        user_name,
       </if>
       <if test="loginName != null">
         login_name,
@@ -123,16 +123,16 @@
       <if test="pwd != null">
         pwd,
       </if>
-      <if test="ctime != null">
-        ctime,
+      <if test="creatTime != null">
+        creat_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="loginName != null">
         #{loginName,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="pwd != null">
         #{pwd,jdbcType=VARCHAR},
       </if>
-      <if test="ctime != null">
-        #{ctime,jdbcType=TIMESTAMP},
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -157,8 +157,8 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
       <if test="record.loginName != null">
         login_name = #{record.loginName,jdbcType=VARCHAR},
@@ -166,8 +166,8 @@
       <if test="record.pwd != null">
         pwd = #{record.pwd,jdbcType=VARCHAR},
       </if>
-      <if test="record.ctime != null">
-        ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      <if test="record.creatTime != null">
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -177,10 +177,10 @@
   <update id="updateByExample" parameterType="map">
     update sys_user
     set id = #{record.id,jdbcType=VARCHAR},
-      username = #{record.username,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
       login_name = #{record.loginName,jdbcType=VARCHAR},
       pwd = #{record.pwd,jdbcType=VARCHAR},
-      ctime = #{record.ctime,jdbcType=TIMESTAMP}
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -188,8 +188,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.quick.modules.auth.bean.SysUser">
     update sys_user
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="loginName != null">
         login_name = #{loginName,jdbcType=VARCHAR},
@@ -197,18 +197,18 @@
       <if test="pwd != null">
         pwd = #{pwd,jdbcType=VARCHAR},
       </if>
-      <if test="ctime != null">
-        ctime = #{ctime,jdbcType=TIMESTAMP},
+      <if test="creatTime != null">
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.quick.modules.auth.bean.SysUser">
     update sys_user
-    set username = #{username,jdbcType=VARCHAR},
+    set user_name = #{userName,jdbcType=VARCHAR},
       login_name = #{loginName,jdbcType=VARCHAR},
       pwd = #{pwd,jdbcType=VARCHAR},
-      ctime = #{ctime,jdbcType=TIMESTAMP}
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -174,73 +174,73 @@ public class SysPermissionExample {
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameIsNull() {
-            addCriterion("permission_name is null");
+        public Criteria andNameIsNull() {
+            addCriterion("name is null");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameIsNotNull() {
-            addCriterion("permission_name is not null");
+        public Criteria andNameIsNotNull() {
+            addCriterion("name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameEqualTo(String value) {
-            addCriterion("permission_name =", value, "permissionName");
+        public Criteria andNameEqualTo(String value) {
+            addCriterion("name =", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameNotEqualTo(String value) {
-            addCriterion("permission_name <>", value, "permissionName");
+        public Criteria andNameNotEqualTo(String value) {
+            addCriterion("name <>", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameGreaterThan(String value) {
-            addCriterion("permission_name >", value, "permissionName");
+        public Criteria andNameGreaterThan(String value) {
+            addCriterion("name >", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameGreaterThanOrEqualTo(String value) {
-            addCriterion("permission_name >=", value, "permissionName");
+        public Criteria andNameGreaterThanOrEqualTo(String value) {
+            addCriterion("name >=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameLessThan(String value) {
-            addCriterion("permission_name <", value, "permissionName");
+        public Criteria andNameLessThan(String value) {
+            addCriterion("name <", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameLessThanOrEqualTo(String value) {
-            addCriterion("permission_name <=", value, "permissionName");
+        public Criteria andNameLessThanOrEqualTo(String value) {
+            addCriterion("name <=", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameLike(String value) {
-            addCriterion("permission_name like", value, "permissionName");
+        public Criteria andNameLike(String value) {
+            addCriterion("name like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameNotLike(String value) {
-            addCriterion("permission_name not like", value, "permissionName");
+        public Criteria andNameNotLike(String value) {
+            addCriterion("name not like", value, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameIn(List<String> values) {
-            addCriterion("permission_name in", values, "permissionName");
+        public Criteria andNameIn(List<String> values) {
+            addCriterion("name in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameNotIn(List<String> values) {
-            addCriterion("permission_name not in", values, "permissionName");
+        public Criteria andNameNotIn(List<String> values) {
+            addCriterion("name not in", values, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameBetween(String value1, String value2) {
-            addCriterion("permission_name between", value1, value2, "permissionName");
+        public Criteria andNameBetween(String value1, String value2) {
+            addCriterion("name between", value1, value2, "name");
             return (Criteria) this;
         }
 
-        public Criteria andPermissionNameNotBetween(String value1, String value2) {
-            addCriterion("permission_name not between", value1, value2, "permissionName");
+        public Criteria andNameNotBetween(String value1, String value2) {
+            addCriterion("name not between", value1, value2, "name");
             return (Criteria) this;
         }
 
@@ -381,76 +381,6 @@ public class SysPermissionExample {
 
         public Criteria andParentIdNotBetween(String value1, String value2) {
             addCriterion("parent_id not between", value1, value2, "parentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeIsNull() {
-            addCriterion("permission_type is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeIsNotNull() {
-            addCriterion("permission_type is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeEqualTo(String value) {
-            addCriterion("permission_type =", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeNotEqualTo(String value) {
-            addCriterion("permission_type <>", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeGreaterThan(String value) {
-            addCriterion("permission_type >", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("permission_type >=", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeLessThan(String value) {
-            addCriterion("permission_type <", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeLessThanOrEqualTo(String value) {
-            addCriterion("permission_type <=", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeLike(String value) {
-            addCriterion("permission_type like", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeNotLike(String value) {
-            addCriterion("permission_type not like", value, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeIn(List<String> values) {
-            addCriterion("permission_type in", values, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeNotIn(List<String> values) {
-            addCriterion("permission_type not in", values, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeBetween(String value1, String value2) {
-            addCriterion("permission_type between", value1, value2, "permissionType");
-            return (Criteria) this;
-        }
-
-        public Criteria andPermissionTypeNotBetween(String value1, String value2) {
-            addCriterion("permission_type not between", value1, value2, "permissionType");
             return (Criteria) this;
         }
     }
