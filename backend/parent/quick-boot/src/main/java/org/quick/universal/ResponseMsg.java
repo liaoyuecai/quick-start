@@ -10,6 +10,7 @@ public class ResponseMsg {
     public final static int SUCCESS = 0;
     public final static int ERROR = 1;
     public final static int PARAMS_EXCEPTION = 2;
+    public final static int SYS_EXCEPTION = 3;
     int code;
     Object message;
 
