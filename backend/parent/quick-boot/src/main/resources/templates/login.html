@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>登录测试</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script th:src="@{js/jquery-3.2.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{js/jquery.form.js}" type="text/javascript"></script>
+    <script th:src="@{layer/layer.js}" type="text/javascript"></script>
+    <script th:src="@{js/login.js}" type="text/javascript"></script>
+    <script th:src="@{jquery-validation/jquery.validate.min.js}" type="text/javascript"></script>
+    <script th:src="@{jquery-validation/messages_zh.js}" type="text/javascript"></script>
+    <style>
+        .mycenter {
+            margin-top: 150px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+<div class="text-center">
+    <div class="mycenter">
+    <form id="loginForm" method="post"  th:action="@{./login}" role="form"
+          action="#">
+        <div class="col-lg-15 text-center text-info">
+            <h2>请登录</h2>
+        </div>
+        <div class="col-lg-15">
+            <input type="text" class="form-control" name="username" placeholder="请输入用户名"/>
+        </div>
+        <div class="col-lg-10"></div>
+        <div class="col-lg-15">
+              <input type="password" class="form-control" name="password" placeholder="请输入密码"/>
+        </div>
+        <div class="col-lg-10"></div>
+        <div class="col-lg-5" style="margin-top: 5px">
+            <input type="button" class="btn btn-primary" value="快速注册"/>
+        </div>
+        <div class="col-lg-5 pull-right" style="margin-top: 10px">
+            <input type="submit" class="btn btn-success"  value="登录" />
+        </div>
+    </form>
+    </div>
+</div>
+</body>
+</html>
