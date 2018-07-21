@@ -1,4 +1,4 @@
-package com.hifo.cloud.gateway;
+package org.quick.gateway;
 
 
 import org.springframework.beans.factory.annotation.Value;
