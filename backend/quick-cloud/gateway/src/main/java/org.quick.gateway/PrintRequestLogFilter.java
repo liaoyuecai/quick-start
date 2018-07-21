@@ -37,6 +37,11 @@ public class PrintRequestLogFilter extends ZuulFilter {
     @Override
     public boolean shouldFilter() {
         RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        String add = request.getRemoteAddr();
+        int port = request.getRemotePort();
+        String add_1 = request.getLocalAddr();
+        int port_1 = request.getLocalPort();
         return !ctx.containsKey(FORWARD_TO_KEY) // a filter has already forwarded
                 && !ctx.containsKey(SERVICE_ID_KEY); // a filter has already determined serviceId
     }

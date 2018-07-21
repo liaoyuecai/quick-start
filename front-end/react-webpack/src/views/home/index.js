@@ -17,7 +17,9 @@ class Container extends BaseComponent {
 
     constructor(props) {
         super(props)
-        this.props.getMenu()
+        const logined = window.sessionStorage.getItem('access_token')
+        if (logined)
+            this.props.getMenu()
     }
 
     componentWillReceiveProps(nextProps) {
@@ -86,8 +88,8 @@ class Container extends BaseComponent {
                         <a href="https://github.com/MuYunyun/react-antd-demo" target='_blank' rel='noopener noreferrer'><Icon
                             type="github" className="github"/></a> :
                         <a href="https://github.com/MuYunyun/react-antd-demo" target='_blank' rel='noopener noreferrer'><Icon
-                            type="github" className="github white"/></a> }
-                    { <span className="author white">Demo</span> }
+                            type="github" className="github white"/></a>}
+                    {<span className="author white">Demo</span>}
                     <Menu
                         theme={this.state.theme}
                         onClick={this.handleClick}
@@ -139,8 +141,8 @@ class Container extends BaseComponent {
                 </Sider>
                 <Layout>
                     <Top toggle={this.toggle} collapsed={this.state.collapsed} clear={this.clear}/>
-                    <Contents />
-                    <Footer />
+                    <Contents/>
+                    <Footer/>
                 </Layout>
             </Layout>
         )
