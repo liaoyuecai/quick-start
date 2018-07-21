@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "proxy": {
-    "/api": {
-      "target": "http://localhost:8080/",
+    "/application": {
+      "target": "http://localhost:7073/",
       "secure": false
     }
   },
@@ -33,7 +33,8 @@
     "redux-actions": "^2.2.1",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "screenfull": "^3.3.2"
+    "screenfull": "^3.3.2",
+    "yarn": "^1.7.0"
   },
   "devDependencies": {
     "analyze-webpack-plugin": "^0.2.5",

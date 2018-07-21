@@ -5,4 +5,6 @@ spring:
       server:
         git:
           uri: https://github.com/liaoyuecai/quick-start
-          search-paths: /config
+          search-paths: config
+          username: liaoyuecai
+          password: lyc910304

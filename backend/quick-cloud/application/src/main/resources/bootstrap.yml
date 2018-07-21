@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: application
   cloud:
     config:
       discovery:
@@ -9,3 +11,17 @@ spring:
     bus:
       trace:
         enabled: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.103:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong&useSSL=false
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+
+
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
+#  typeAliasesPackage: tk.mapper.model
+  configuration:
+    map-underscore-to-camel-case: true
+
