@@ -19,8 +19,7 @@ const loginReducers = (state = defaultState, action) => {
 
 
 function* loginRequest(action) {
-    const data = yield call(fetch, '/application/auth/login', action.value, 'POST')
-    console.log(data)
+    const data = yield call(fetch, action.url, action.value, 'POST')
     if (data) {
         if (data.status) {
             window.sessionStorage.setItem('access_token', data.message)

@@ -64,7 +64,7 @@ export default connect(
     (dispatch) => {
         return {
             loginFun: (value) => {
-                dispatch({type: 'LOGIN_REQUEST', value: value})
+                dispatch({type: 'LOGIN_REQUEST', value: value, url: 'http://localhost:7073/application/auth/login'})
             }
         }
     }
