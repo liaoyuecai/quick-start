@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.quick.application.modules.auth.bean.SysPermission;
 import org.quick.application.modules.auth.bean.SysPermissionExample;
+import org.quick.application.modules.auth.bean.SysRole;
 
 public interface SysPermissionMapper {
     long countByExample(SysPermissionExample example);
@@ -18,7 +19,7 @@ public interface SysPermissionMapper {
 
     List<SysPermission> selectByExample(SysPermissionExample example);
 
-    List<SysPermission> selectByRole(List<String> list);
+    List<SysPermission> selectByRole(List<SysRole> list);
 
     SysPermission selectByPrimaryKey(String id);
 

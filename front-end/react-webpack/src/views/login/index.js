@@ -21,8 +21,9 @@ class LoginPage extends BaseComponent {
 
     render() {
         const {getFieldDecorator} = this.props.form
+        const token = window.sessionStorage.getItem('access_token')
         const {logined} = this.props
-        if (logined) {
+        if (logined && token) {
             return <Redirect from="/login" to="/"/>
         }
         return (

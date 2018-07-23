@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50721
 File Encoding         : 65001
 
-Date: 2018-07-19 16:06:20
+Date: 2018-07-23 09:53:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -70,8 +70,8 @@ CREATE TABLE `sys_user` (
   `id` varchar(36) NOT NULL,
   `user_name` varchar(50) NOT NULL COMMENT '用户名称',
   `login_name` varchar(50) DEFAULT NULL COMMENT '登录名',
-  `pwd` varchar(32) DEFAULT NULL COMMENT '密码32位MD5，大写',
-  `creat_time` datetime DEFAULT NULL,
+  `password` varchar(32) DEFAULT NULL COMMENT '密码32位MD5，大写',
+  `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 

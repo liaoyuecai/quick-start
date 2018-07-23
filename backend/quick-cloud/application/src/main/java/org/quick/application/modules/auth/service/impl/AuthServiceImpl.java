@@ -1,6 +1,7 @@
 package org.quick.application.modules.auth.service.impl;
 
 
+import org.quick.application.exception.DataException;
 import org.quick.application.modules.auth.bean.SysPermission;
 import org.quick.application.modules.auth.bean.SysRole;
 import org.quick.application.modules.auth.bean.SysUser;
@@ -9,7 +10,7 @@ import org.quick.application.modules.auth.dao.SysPermissionMapper;
 import org.quick.application.modules.auth.dao.SysRoleMapper;
 import org.quick.application.modules.auth.dao.SysUserMapper;
 import org.quick.application.modules.auth.service.AuthService;
-import org.quick.application.exception.DataException;
+import org.quick.application.modules.auth.view.SysUserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,25 +28,23 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     SysPermissionMapper permissionMapper;
 
+
     @Override
-    public SysUser findUserByLoginName(String name) {
+    public SysUserView findUserView(SysUser user) {
         SysUserExample example = new SysUserExample();
-        example.createCriteria().andLoginNameEqualTo(name);
+        example.createCriteria().andLoginNameEqualTo(user.getLoginName());
         List<SysUser> users = userMapper.selectByExample(example);
-        if (users.size()>1)
-            throw new RuntimeException(new DataException("存在多个用户登录名相同："+name));
+        SysUserView userView = new SysUserView();
+        if (users.size() > 1)
+            throw new RuntimeException(new DataException("存在多个用户登录名相同：" + user.getLoginName()));
         else if (users.size() == 1)
-            return users.get(0);
-        return null;
-    }
-
-    @Override
-    public List<SysRole> findRolesByUserId(String userId) {
-        return roleMapper.selectByUserId(userId);
-    }
-
-    @Override
-    public List<SysPermission> findPermissionsByRole(List<String> roleTags) {
-        return permissionMapper.selectByRole(roleTags);
+            userView.setUser(users.get(0));
+        else
+            return null;
+        List<SysRole> roles = roleMapper.selectByUserId(userView.getUser().getId());
+        userView.setRoles(roles);
+        List<SysPermission> permissions = permissionMapper.selectByRole(roles);
+        userView.setPermissions(permissions);
+        return userView;
     }
 }

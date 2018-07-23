@@ -19,9 +19,6 @@ import org.springframework.web.filter.CorsFilter;
 public class Gateway {
 
 
-    @Value("${allowed.origin}")
-    String allowedOrigin;
-
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

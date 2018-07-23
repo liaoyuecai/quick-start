@@ -94,14 +94,14 @@
         from sys_permission
         where id = #{id,jdbcType=VARCHAR}
     </select>
-    <select id="selectByRole" parameterType="java.lang.String" resultType="org.quick.application.modules.auth.bean.SysPermission">
+    <select id="selectByRole" parameterType="org.quick.application.modules.auth.bean.SysRole" resultType="org.quick.application.modules.auth.bean.SysPermission">
         select
         p.id,p.name,p.url,p.parent_id
         from sys_permission p JOIN sys_role_permission s ON p.id = s.permission_id
         JOIN sys_role r ON r.id = s.role_id
         where r.tag in (
         <foreach collection="list" index="index" item="record" separator=",">
-            #{record,jdbcType=VARCHAR}
+            #{record.tag,jdbcType=VARCHAR}
         </foreach>
         )
     </select>

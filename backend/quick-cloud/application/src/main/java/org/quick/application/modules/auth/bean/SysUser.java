@@ -9,16 +9,16 @@ public class SysUser {
 
     private String loginName;
 
-    private String pwd;
+    private String password;
 
-    private Date creatTime;
+    private Date createTime;
 
-    public SysUser(String id, String userName, String loginName, String pwd, Date creatTime) {
+    public SysUser(String id, String userName, String loginName, String password, Date createTime) {
         this.id = id;
         this.userName = userName;
         this.loginName = loginName;
-        this.pwd = pwd;
-        this.creatTime = creatTime;
+        this.password = password;
+        this.createTime = createTime;
     }
 
     public SysUser() {
@@ -49,19 +49,19 @@ public class SysUser {
         this.loginName = loginName == null ? null : loginName.trim();
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd == null ? null : pwd.trim();
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public Date getCreatTime() {
-        return creatTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
+    public void e(Date createTime) {
+        this.createTime = createTime;
     }
 }

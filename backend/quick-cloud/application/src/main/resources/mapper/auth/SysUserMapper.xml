@@ -6,8 +6,8 @@
       <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="login_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="pwd" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="creat_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, login_name, pwd, creat_time
+    id, user_name, login_name, password, create_time
   </sql>
   <select id="selectByExample" parameterType="org.quick.application.modules.auth.bean.SysUserExample" resultMap="BaseResultMap">
     select
@@ -104,9 +104,9 @@
   </delete>
   <insert id="insert" parameterType="org.quick.application.modules.auth.bean.SysUser">
     insert into sys_user (id, user_name, login_name, 
-      pwd, creat_time)
+      password, create_time)
     values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
-      #{pwd,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP})
+      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.quick.application.modules.auth.bean.SysUser">
     insert into sys_user
@@ -120,11 +120,11 @@
       <if test="loginName != null">
         login_name,
       </if>
-      <if test="pwd != null">
-        pwd,
+      <if test="password != null">
+        password,
       </if>
-      <if test="creatTime != null">
-        creat_time,
+      <if test="createTime != null">
+        create_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -137,11 +137,11 @@
       <if test="loginName != null">
         #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="pwd != null">
-        #{pwd,jdbcType=VARCHAR},
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
-      <if test="creatTime != null">
-        #{creatTime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -163,11 +163,11 @@
       <if test="record.loginName != null">
         login_name = #{record.loginName,jdbcType=VARCHAR},
       </if>
-      <if test="record.pwd != null">
-        pwd = #{record.pwd,jdbcType=VARCHAR},
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.creatTime != null">
-        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -179,8 +179,8 @@
     set id = #{record.id,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       login_name = #{record.loginName,jdbcType=VARCHAR},
-      pwd = #{record.pwd,jdbcType=VARCHAR},
-      creat_time = #{record.creatTime,jdbcType=TIMESTAMP}
+      password = #{record.password,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -194,11 +194,11 @@
       <if test="loginName != null">
         login_name = #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="pwd != null">
-        pwd = #{pwd,jdbcType=VARCHAR},
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="creatTime != null">
-        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -207,8 +207,8 @@
     update sys_user
     set user_name = #{userName,jdbcType=VARCHAR},
       login_name = #{loginName,jdbcType=VARCHAR},
-      pwd = #{pwd,jdbcType=VARCHAR},
-      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+      password = #{password,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

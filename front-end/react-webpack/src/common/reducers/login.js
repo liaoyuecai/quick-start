@@ -2,7 +2,6 @@ import {Map} from "immutable"
 import {call, put, takeEvery} from "redux-saga/effects"
 import fetch from "../utils/fetch"
 import {error} from "../utils/dialog"
-import pro from "../../properties"
 const LOGIN_ACTION = {type: 'LOGIN_ACTION'}
 
 
@@ -20,8 +19,9 @@ const loginReducers = (state = defaultState, action) => {
 
 function* loginRequest(action) {
     const data = yield call(fetch, action.url, action.value, 'POST')
+    console.log(data)
     if (data) {
-        if (data.status) {
+        if (data.code==0) {
             window.sessionStorage.setItem('access_token', data.message)
             window.sessionStorage.setItem('userName', action.value.userName)
             yield put({type: 'LOGIN_ACTION', logined: true})

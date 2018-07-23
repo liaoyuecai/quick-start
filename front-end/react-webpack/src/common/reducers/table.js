@@ -20,7 +20,7 @@ const tableReducers = (state = defaultState, action) => {
 function* communityTable(action) {
     const data = yield call(fetch, pro.application + '/community/list', action.value, 'POST')
     if (data) {
-        if (data.status) {
+        if (data.code== 0) {
             data.message.rows = IdToKey(data.message.rows)
             yield put({type: 'COMMUNITY_LIST', data: data.message})
         } else {
@@ -31,7 +31,7 @@ function* communityTable(action) {
 function* communityEdit(action) {
     const data = yield call(fetch, pro.application + '/community/edit', action.value, 'POST')
     if (data) {
-        if (data.status) {
+        if (data.code== 0) {
             const data = yield call(fetch, pro.application + '/community/list', action.params, 'POST')
             if (data) {
                 if (data.status) {
@@ -50,7 +50,7 @@ function* communityEdit(action) {
 function* communityGetting(action) {
     const data = yield call(fetch, pro.application + '/community/findByKey', {id: action.value}, 'POST')
     if (data) {
-        if (data.status) {
+        if (data.code== 0) {
             yield put({type: 'COMMUNITY_DATA', data: data.message})
         } else {
             error(data.message)
