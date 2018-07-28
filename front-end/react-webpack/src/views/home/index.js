@@ -15,29 +15,50 @@ const {Sider} = Layout
 
 class Container extends BaseComponent {
 
-    constructor(props) {
-        super(props)
-        const logined = window.sessionStorage.getItem('access_token')
-        if (logined)
-            this.props.getMenu()
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!this.props.openMenu && !this.props.currentPage) {
-            this.setState({
-                currentPage: nextProps.currentPage,
-                openKeys: [nextProps.openMenu],
-            })
-        }
-    }
-
-
     state = {
+        menu: [],
         theme: 'dark',
         currentPage: '',
         openKeys: [],
         collapsed: false,
         mode: 'inline'  // 水平垂直展现
+    }
+
+    constructor(props) {
+        super(props)
+        const user = window.sessionStorage.getItem('user')
+        if (user){
+            this.state.menu = JSON.parse(user).menu
+            const path = props.location.pathname
+            this.checkCurrent(path.substr(1, path.length - 1), this.state.menu)
+        }
+    }
+
+    checkCurrent(path, menu) {
+        const _this = this
+        menu.map(function (item) {
+            if (item.children && item.children.length) {
+                if (_this.checkCurrent(path, item.children)) {
+                    _this.state.openKeys.push(e.parentId)
+                }
+            } else {
+                if (path === item.url) {
+                    _this.state.openKeys.push(item.parentId)
+                    _this.state.currentPage = item.key
+                    return true
+                }
+            }
+        })
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.openMenu && !this.props.currentPage) {
+            // this.setState({
+            //     currentPage: nextProps.currentPage,
+            //     openKeys: [nextProps.openMenu],
+            // })
+        }
     }
 
 
@@ -54,6 +75,7 @@ class Container extends BaseComponent {
         })
     }
     handleClick = (e) => {
+        console.log(e.key)
         this.setState({
             currentPage: e.key
         })
@@ -72,10 +94,11 @@ class Container extends BaseComponent {
     }
 
     render() {
-        const logined = window.sessionStorage.getItem('access_token')
-        if (!logined) {
+        const user = window.sessionStorage.getItem('user')
+        if (!user) {
             return <Redirect from="/" to="/login"/>
         }
+        console.log(history)
         return (
             <Layout className="containAll">
                 <Sider
@@ -100,10 +123,10 @@ class Container extends BaseComponent {
                         mode={this.state.mode}
                     >
                         {
-                            this.props.menu.map(function (item) {
+                            this.state.menu.map(function (item) {
                                 const showChildren = (e) => {
                                     if (e.children.length > 0) {
-                                        return <MenuItemGroup key={e.id} title={<span>{e.name}</span>}>
+                                        return <MenuItemGroup key={e.key} title={<span>{e.name}</span>}>
                                             {
                                                 e.children.map(function (item) {
                                                     return showChildren(item)
@@ -111,7 +134,7 @@ class Container extends BaseComponent {
                                             }
                                         </MenuItemGroup>
                                     } else {
-                                        return <Menu.Item key={e.id}>
+                                        return <Menu.Item key={e.key}>
                                             <Link to={`/${e.url}`}>
                                                 <span className="nav-text">{e.name}</span>
                                             </Link>
@@ -120,7 +143,7 @@ class Container extends BaseComponent {
                                     }
                                 }
                                 if (item.children && item.children.length) {
-                                    return (<SubMenu key={item.id} title={<span><Icon
+                                    return (<SubMenu key={item.key} title={<span><Icon
                                         type={item.icon}/><span>{item.name}</span></span>}>
                                         {
                                             item.children.map(function (item) {
@@ -129,12 +152,17 @@ class Container extends BaseComponent {
                                         }
                                     </SubMenu>)
                                 } else {
-                                    return <Menu.Item key={e.id}>
+                                    return <Menu.Item key={item.key}>
                                         <Link to={`/${item.url}`}>
                                             <Icon type={item.icon}/><span className="nav-text">{item.name}</span>
                                         </Link>
                                     </Menu.Item>
                                 }
+                                // return <Menu.Item key={item.key}>
+                                //             <Link to={`/${item.url}`}>
+                                //                 <Icon type={item.icon}/><span className="nav-text">{item.name}</span>
+                                //             </Link>
+                                //         </Menu.Item>
                             })
                         }
                     </Menu>
@@ -151,53 +179,9 @@ class Container extends BaseComponent {
 
 export default connect(
     (state) => {
-        const menu = state.getIn(['homeReducers', 'menu'])
-        if (menu) {
-            var currentPage = '0'
-            var openMenu = '0'
-            menu.map(function (item) {
-                const checkIndex = (e) => {
-                    if (e.children && e.children.length) {
-                        var re = e.children.map(function (item) {
-                            if (checkIndex(item))
-                                return true
-                        })
-                        return re.includes(true)
-                    } else {
-                        if (location.pathname === `/${e.url}`) {
-                            currentPage = e.id
-                            return true
-                        }
-                    }
-                }
-
-                if (item.children && item.children.length) {
-                    item.children.map(function (e) {
-                        if (checkIndex(e))
-                            openMenu = e.pid
-                    })
-                } else {
-                    if (location.pathname === `/${item.url}`) {
-                        currentPage = item.id
-                    }
-                }
-            })
-            return {
-                currentPage: currentPage,
-                openMenu: openMenu,
-                menu: menu
-            }
-        } else {
-            return {
-                menu: []
-            }
-        }
+        return {}
     },
     (dispatch) => {
-        return {
-            getMenu: () => {
-                dispatch({type: 'INDEX_MENU'})
-            }
-        }
+        return {}
     },
 )(Container)

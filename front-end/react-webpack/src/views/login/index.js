@@ -21,9 +21,9 @@ class LoginPage extends BaseComponent {
 
     render() {
         const {getFieldDecorator} = this.props.form
-        const token = window.sessionStorage.getItem('access_token')
+        const user = window.sessionStorage.getItem('user')
         const {logined} = this.props
-        if (logined && token) {
+        if (logined && user) {
             return <Redirect from="/login" to="/"/>
         }
         return (
@@ -33,7 +33,7 @@ class LoginPage extends BaseComponent {
                     <div className="loginWrap">
                         <Form onSubmit={this.handleSubmit}>
                             <FormItem>
-                                {getFieldDecorator('userName', {
+                                {getFieldDecorator('loginName', {
                                     rules: [{required: true, message: '请输入用户名'}],
                                 })(
                                     <Input placeholder="请输入用户名："/>

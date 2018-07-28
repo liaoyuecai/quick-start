@@ -19,11 +19,10 @@ const loginReducers = (state = defaultState, action) => {
 
 function* loginRequest(action) {
     const data = yield call(fetch, action.url, action.value, 'POST')
-    console.log(data)
     if (data) {
         if (data.code==0) {
-            window.sessionStorage.setItem('access_token', data.message)
-            window.sessionStorage.setItem('userName', action.value.userName)
+            window.sessionStorage.setItem('user', JSON.stringify(data.message))
+            window.sessionStorage.setItem('userName', data.message.user.userName)
             yield put({type: 'LOGIN_ACTION', logined: true})
         } else {
             window.sessionStorage.clear()

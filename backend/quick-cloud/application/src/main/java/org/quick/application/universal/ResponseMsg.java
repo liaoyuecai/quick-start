@@ -34,7 +34,7 @@ public class ResponseMsg {
     }
 
     public static ResponseMsg error(Object message) {
-        ResponseMsg msg = new ResponseMsg(ERROR);
+        ResponseMsg msg = new ResponseMsg(ERROR, message);
         return msg;
     }
 }

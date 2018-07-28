@@ -9,11 +9,14 @@ public class SysPermission {
 
     private String parentId;
 
-    public SysPermission(String id, String name, String url, String parentId) {
+    private String icon;
+
+    public SysPermission(String id, String name, String url, String parentId, String icon) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.parentId = parentId;
+        this.icon = icon;
     }
 
     public SysPermission() {
@@ -50,5 +53,13 @@ public class SysPermission {
 
     public void setParentId(String parentId) {
         this.parentId = parentId == null ? null : parentId.trim();
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

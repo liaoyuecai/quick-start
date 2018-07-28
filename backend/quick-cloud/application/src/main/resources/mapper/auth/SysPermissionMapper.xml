@@ -7,6 +7,7 @@
             <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR"/>
             <arg column="parent_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <arg column="icon" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </constructor>
     </resultMap>
     <sql id="Example_Where_Clause">
@@ -96,7 +97,7 @@
     </select>
     <select id="selectByRole" parameterType="org.quick.application.modules.auth.bean.SysRole" resultType="org.quick.application.modules.auth.bean.SysPermission">
         select
-        p.id,p.name,p.url,p.parent_id
+        p.id,p.name,p.url,p.parent_id,p.icon
         from sys_permission p JOIN sys_role_permission s ON p.id = s.permission_id
         JOIN sys_role r ON r.id = s.role_id
         where r.tag in (
@@ -117,7 +118,7 @@
     </delete>
     <insert id="insert" parameterType="org.quick.application.modules.auth.bean.SysPermission">
     insert into sys_permission (id, name, url, 
-      parent_id)
+      parent_id,icon)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{parentId,jdbcType=VARCHAR})
   </insert>
@@ -208,7 +209,8 @@
     update sys_permission
     set name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
-      parent_id = #{parentId,jdbcType=VARCHAR}
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

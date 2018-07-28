@@ -14,5 +14,6 @@ public class SysUserView {
     String token = UUID.randomUUID().toString();
     SysUser user;
     List<SysRole> roles;
-    List<SysPermission> permissions;
+    List<MenuView> menu;
+    List<String> permissions;
 }

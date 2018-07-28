@@ -4,34 +4,53 @@ import {Layout} from 'antd'
 import './content.less'
 
 import community from '../pages/community'
-// import index from 'pages/index'
-// import follow from 'pages/follow'
-import Tools from '../pages/tools'
-// import Music from 'pages/music'
-// import Todo from 'pages/todo'
-// import Album from 'pages/album'
-// import Editor from 'pages/editor'
-// import TodoList from 'pages/todoList'
-// import Search from 'pages/search'
-// import Waterfall from 'pages/waterfall'
+import table from '../pages/table/test'
+import tools from '../pages/tools'
 
 const {Content} = Layout
 
 export default class Contents extends React.Component {
+
+
+    constructor(props) {
+        super(props)
+        const permissions = JSON.parse(window.sessionStorage.getItem('user')).permissions
+        const routes = []
+        this.checkRoute(routes,permissions,'community',community)
+        this.checkRoute(routes,permissions,'table',table)
+        this.checkRoute(routes,permissions,'tools',tools)
+        // if (permissions.includes('community')) {
+        //     const route = <Route key={'community'} path="/community" component={community}/>
+        //     routes.push(route)
+        // }
+        // if (permissions.includes('table')) {
+        //     const route = <Route key={'table'} path="/table" component={table}/>
+        //     routes.push(route)
+        // }if (permissions.includes('tools')) {
+        //     const route = <Route key={'tools'} path="/tools" component={tools}/>
+        //     routes.push(route)
+        // }
+        this.state = {
+            routes:routes
+        }
+    }
+
+    checkRoute(routes,permissions,url,route){
+        if (permissions.includes(url)) {
+            routes.push(<Route key={url} path={`/${url}`} component={route}/>)
+        }
+
+        console.log(routes)
+    }
+
     render() {
         return (
             <Content className="content" id="content">
-                <Route path="/community" component={community}/>
-                {/*<Route path="/index" component={index} />*/}
-                {/*<Route path="/follow" component={follow} />*/}
-                <Route path="/tools" component={Tools}/>
-                {/*<Route path="/music" component={Music} />*/}
-                {/*<Route path="/todo" component={Todo} />*/}
-                {/*<Route path="/album" component={Album} />*/}
-                {/*<Route path="/editor" component={Editor} />*/}
-                {/*<Route path="/todoList" component={TodoList} />*/}
-                {/*<Route path="/searchEngine" component={Search} />*/}
-                {/*<Route path="/waterfall" component={Waterfall} />*/}
+                {
+                    this.state.routes.map(function (item) {
+                        return item
+                    })
+                }
             </Content>
         )
     }

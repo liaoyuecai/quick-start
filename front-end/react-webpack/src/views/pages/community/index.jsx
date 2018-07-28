@@ -20,7 +20,7 @@ class Community extends TablePage {
         this.state.districts = []
         this.state.value = ''
         this.provincesPlaceholder = '请选择省份'
-        props.getTableData(this.state.tableParams)
+        // props.getTableData(this.state.tableParams)
     }
 
     onLoadQR = (text, e) => {
@@ -170,9 +170,9 @@ class Community extends TablePage {
         return (
             <div>
                 <div className="table-operations">
-                    <Provinces id={this.state.provinceId} onSelect={this.selectProvince}/>
-                    <Cities pid={this.state.provinceId} onSelect={this.selectCity}/>
-                    <Districts pid={this.state.cityId} onSelect={this.selectDistrict}/>
+                    {/*<Provinces id={this.state.provinceId} onSelect={this.selectProvince}/>*/}
+                    {/*<Cities pid={this.state.provinceId} onSelect={this.selectCity}/>*/}
+                    {/*<Districts pid={this.state.cityId} onSelect={this.selectDistrict}/>*/}
                     <Input placeholder="楼盘名称"
                            value={this.state.communityName}
                            onChange={(e) => {
@@ -246,10 +246,10 @@ export default connect(
     (dispatch) => {
         return {
             getTableData: (params) => {
-                dispatch({type: 'COMMUNITY_TABLE', value: params})
+                // dispatch({type: 'COMMUNITY_TABLE', value: params})
             },
             changeAttr: (type, value, params) => {
-                dispatch({type: type, value: value, params: params})
+                // dispatch({type: type, value: value, params: params})
             }
         }
     }
