@@ -17,8 +17,8 @@ spring:
       prefix: /
 
 mybatis:
-  mapperLocations: classpath:mapper/**/*.xml
-#  typeAliasesPackage: tk.mapper.model
+  mapperLocations: classpath:mappers/**/*.xml
+#  typeAliasesPackage: tk.mappers.model
   configuration:
     map-underscore-to-camel-case: true
 

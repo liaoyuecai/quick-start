@@ -12,6 +12,8 @@ const tableReducers = (state = defaultState, action) => {
             return state.set('community_table_data', action.data)
         case 'COMMUNITY_DATA':
             return state.set('community_data', action.data)
+        case 'STUDENT_DATA':
+            return state.set('studentsPage', action.data)
         default:
             return state
     }
@@ -57,11 +59,24 @@ function* communityGetting(action) {
         }
     }
 }
+function* studentPage(action) {
+    const data = yield call(fetch, action.url, action.value, 'POST')
+    if (data) {
+        if (data.code== 0) {
+            const page = data.message
+            IdToKey(page.list)
+            yield put({type: 'STUDENT_DATA', data: page})
+        } else {
+            error(data.message)
+        }
+    }
+}
 
 function* tableSaga() {
     yield takeEvery("COMMUNITY_TABLE", communityTable)
     yield takeEvery("COMMUNITY_EDIT", communityEdit)
     yield takeEvery("COMMUNITY_GETTING", communityGetting)
+    yield takeEvery("SELECT_STUDENT", studentPage)
 }
 
 

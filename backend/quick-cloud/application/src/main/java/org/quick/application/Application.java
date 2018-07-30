@@ -23,17 +23,17 @@ public class Application {
     public PlatformTransactionManager txManager(@Qualifier("dataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
-    //分页插件
-    @Bean
-    public PageHelper pageHelper() {
-        PageHelper pageHelper = new PageHelper();
-        Properties p = new Properties();
-        p.setProperty("offsetAsPageNum", "true");
-        p.setProperty("rowBoundsWithCount", "true");
-        p.setProperty("reasonable", "true");
-        pageHelper.setProperties(p);
-        return pageHelper;
-    }
+//    //分页插件
+//    @Bean
+//    public PageHelper pageHelper() {
+//        PageHelper pageHelper = new PageHelper();
+//        Properties p = new Properties();
+//        p.setProperty("offsetAsPageNum", "true");
+//        p.setProperty("rowBoundsWithCount", "true");
+//        p.setProperty("reasonable", "true");
+//        pageHelper.setProperties(p);
+//        return pageHelper;
+//    }
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

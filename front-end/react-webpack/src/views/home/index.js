@@ -52,16 +52,6 @@ class Container extends BaseComponent {
     }
 
 
-    componentWillReceiveProps(nextProps) {
-        if (!this.props.openMenu && !this.props.currentPage) {
-            // this.setState({
-            //     currentPage: nextProps.currentPage,
-            //     openKeys: [nextProps.openMenu],
-            // })
-        }
-    }
-
-
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
@@ -75,7 +65,6 @@ class Container extends BaseComponent {
         })
     }
     handleClick = (e) => {
-        console.log(e.key)
         this.setState({
             currentPage: e.key
         })
@@ -98,7 +87,6 @@ class Container extends BaseComponent {
         if (!user) {
             return <Redirect from="/" to="/login"/>
         }
-        console.log(history)
         return (
             <Layout className="containAll">
                 <Sider

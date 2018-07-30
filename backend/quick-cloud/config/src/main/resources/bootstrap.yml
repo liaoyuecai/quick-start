@@ -6,4 +6,3 @@ spring:
         git:
           uri: https://github.com/liaoyuecai/quick-start
           search-paths: config
-

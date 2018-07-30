@@ -19,17 +19,6 @@ export default class Contents extends React.Component {
         this.checkRoute(routes,permissions,'community',community)
         this.checkRoute(routes,permissions,'table',table)
         this.checkRoute(routes,permissions,'tools',tools)
-        // if (permissions.includes('community')) {
-        //     const route = <Route key={'community'} path="/community" component={community}/>
-        //     routes.push(route)
-        // }
-        // if (permissions.includes('table')) {
-        //     const route = <Route key={'table'} path="/table" component={table}/>
-        //     routes.push(route)
-        // }if (permissions.includes('tools')) {
-        //     const route = <Route key={'tools'} path="/tools" component={tools}/>
-        //     routes.push(route)
-        // }
         this.state = {
             routes:routes
         }
@@ -39,8 +28,6 @@ export default class Contents extends React.Component {
         if (permissions.includes(url)) {
             routes.push(<Route key={url} path={`/${url}`} component={route}/>)
         }
-
-        console.log(routes)
     }
 
     render() {

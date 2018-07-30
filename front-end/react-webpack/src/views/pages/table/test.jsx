@@ -1,112 +1,141 @@
-import React from 'react'
-import BaseComponent from '../../../common/BaseComponent'
-import './index.less'
-import { Table, Button } from 'antd'
-
-const data = [{
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-}, {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-}, {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-}, {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park',
-}]
+import React from "react";
+import {connect} from "react-redux";
+import BaseComponent from "../../../common/BaseComponent";
+import "./index.less";
+import {Table} from "antd";
 
 class DataTable extends BaseComponent {
 
+    constructor(props) {
+        super(props)
+        props.getPage({
+            pageNo: this.state.pageNo,
+            pageSize: this.state.pageSize
+        })
+    }
+
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.page) {
+            const page = nextProps.page
+            this.setState({
+                pageTotal: page.total,
+                rows: page.list,
+                pageSize: page.pageSize
+            })
+        }
+    }
+
     state = {
-        filteredInfo: null,
         sortedInfo: null,
+        pageNo: 1,
+        pageSize: 10
     }
 
     handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter)
+        if (pagination) {
+            this.setState({
+                pageNo: pagination.current,
+                pageSize: pagination.pageSize
+            })
+        }
+        if (sorter) {
+            this.setState({
+                field: sorter.field,
+                order: sorter.order
+            })
+        }
+        this.props.getPage({
+            pageNo: pagination.current,
+            pageSize: pagination.pageSize,
+            field: sorter.field,
+            order: sorter.order
+        })
         this.setState({
-            filteredInfo: filters,
-            sortedInfo: sorter,
+            sortedInfo: sorter
         })
     }
 
-    clearFilters = () => {
-        this.setState({ filteredInfo: null })
-    }
-
-    clearAll = () => {
-        this.setState({
-            filteredInfo: null,
-            sortedInfo: null,
-        })
-    }
-
-    setAgeSort = () => {
-        this.setState({
-            sortedInfo: {
-                order: 'descend',
-                columnKey: 'age',
-            },
-        })
+    rowSelection = {
+        onChange: (selectedRowKeys, selectedRows) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+        },
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Disabled User', // Column configuration not to be checked
+            name: record.name,
+        }),
     }
 
     render() {
-        let { sortedInfo, filteredInfo } = this.state
+        let {sortedInfo} = this.state
         sortedInfo = sortedInfo || {}
-        filteredInfo = filteredInfo || {}
         const columns = [{
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            filters: [
-                { text: 'Joe', value: 'Joe' },
-                { text: 'Jim', value: 'Jim' },
-            ],
-            filteredValue: filteredInfo.name || null,
-            onFilter: (value, record) => record.name.includes(value),
-            sorter: (a, b) => a.name.length - b.name.length,
-            sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
         }, {
             title: 'Age',
             dataIndex: 'age',
-            key: 'age',
-            sorter: (a, b) => a.age - b.age,
-            sortOrder: sortedInfo.columnKey === 'age' && sortedInfo.order,
+            key:'age'
         }, {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-            filters: [
-                { text: 'London', value: 'London' },
-                { text: 'New York', value: 'New York' },
-            ],
-            filteredValue: filteredInfo.address || null,
-            onFilter: (value, record) => record.address.includes(value),
-            sorter: (a, b) => a.address.length - b.address.length,
-            sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
+            title: 'Sex',
+            dataIndex: 'sex',
+            key:'sex',
+            render: (text, record, index) => {
+                return text == 0?'男':'女'
+            }
+        }, {
+            title: 'Phone',
+            dataIndex: 'phone',
+            key: 'phone',
         }]
+        columns.map(function (row) {
+            if (row.key !== 'action') {
+                row.sorter = (a, b) => {
+                }
+                row.sortOrder = sortedInfo.columnKey === row.key && sortedInfo.order
+            }
+        })
         return (
             <div>
                 <div className="table-operations">
-                    <Button onClick={this.setAgeSort}>Sort age</Button>
-                    <Button onClick={this.clearFilters}>Clear filters</Button>
-                    <Button onClick={this.clearAll}>Clear filters and sorters</Button>
                 </div>
-                <Table columns={columns} dataSource={data} onChange={this.handleChange} />
+                <Table columns={columns}
+                       dataSource={this.state.rows}
+                       onChange={this.handleChange}
+                       rowSelection={this.rowSelection}
+                       // scroll={{y: 400}}
+                       pagination={{
+                           total: this.state.pageTotal,
+                           pageSize: this.state.pageSize,
+                           defaultPageSize: this.state.pageSize,
+                           showSizeChanger: true,
+                           showTotal: function () {
+                               return '共' + this.total + '条数据'
+                           }
+                       }}
+                />
             </div>
         )
     }
 
 }
-
-export default DataTable
+export default connect(
+    (state) => {
+        const page = state.getIn(['tableReducers', 'studentsPage'])
+        return {
+            page
+        }
+    },
+    (dispatch) => {
+        return {
+            getPage: (params) => {
+                dispatch({
+                    type: 'SELECT_STUDENT',
+                    value: params,
+                    url: 'http://localhost:7073/application/sample/student/studentPage'
+                })
+            }
+        }
+    }
+)(DataTable)
