@@ -1,9 +1,11 @@
 package org.quick.application.modules.sample.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.quick.application.modules.sample.bean.Student;
 import org.quick.application.modules.sample.bean.StudentExample;
+import org.quick.application.modules.sample.bean.StudentQueryParams;
 
 public interface StudentMapper {
     long countByExample(StudentExample example);
@@ -12,11 +14,15 @@ public interface StudentMapper {
 
     int deleteByPrimaryKey(String id);
 
+    int deleteByPrimaryKeys(List<String> ids);
+
     int insert(Student record);
 
     int insertSelective(Student record);
 
     List<Student> selectByExample(StudentExample example);
+
+    List<Student> selectByPage(StudentQueryParams params);
 
     Student selectByPrimaryKey(String id);
 

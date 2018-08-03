@@ -2,8 +2,9 @@ package org.quick.application.modules.sample.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang.StringUtils;
+import org.quick.application.exception.DataException;
 import org.quick.application.modules.sample.bean.Student;
-import org.quick.application.modules.sample.bean.StudentExample;
 import org.quick.application.modules.sample.bean.StudentQueryParams;
 import org.quick.application.modules.sample.dao.StudentMapper;
 import org.quick.application.modules.sample.service.StudentService;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -21,9 +23,21 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public PageInfo<Student> findStudent(StudentQueryParams params) {
-        PageHelper.offsetPage((params.getPageNo()-1) * params.getPageSize(), params.getPageSize());
-        List<Student> list = studentMapper.selectByExample(new StudentExample());
+        PageHelper.offsetPage((params.getPageNo() - 1) * params.getPageSize(), params.getPageSize());
+        List<Student> list = studentMapper.selectByPage(params);
         PageInfo<Student> page = new PageInfo(list);
         return page;
+    }
+
+    @Override
+    public List<String> deleteByIds(String ids) {
+        if (StringUtils.isNotEmpty(ids)) {
+            List<String> list = Arrays.asList(ids.split(","));
+            int i = studentMapper.deleteByPrimaryKeys(list);
+            if (i != list.size())
+                throw new RuntimeException("删除学生数据异常,请联系管理员");
+            return list;
+        }
+        throw new RuntimeException(new DataException("参数异常,删除学生表id不能为空"));
     }
 }

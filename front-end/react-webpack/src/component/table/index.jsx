@@ -1,95 +1,239 @@
 import React from "react"
-import {connect} from "react-redux"
 import BaseComponent from "../../common/BaseComponent"
 import "./index.less"
-import {Table} from "antd"
+import {Button, Table} from "antd"
+import fetch from "../../common/utils/fetch"
+import {IdToKey} from "../../common/utils/format"
+import Modal from "../modal"
+import QueryForm from "../form/query"
+import TableForm from "../form/table"
 
-class DataTable extends BaseComponent {
+export default class DataTable extends BaseComponent {
+
+    params = {}
+    btnTools = []
 
     constructor(props) {
         super(props)
         const columns = props.columns ? props.columns : []
         const sortedInfo = {}
         columns.map(function (row) {
-            if (row.key !== 'action') {
-                row.sorter = (a, b) => {
-                }
-                row.sortOrder = sortedInfo.columnKey === row.key && sortedInfo.order
+            row.sorter = (a, b) => {
             }
+            row.sortOrder = sortedInfo.columnKey === row.key && sortedInfo.order
         })
-        if (props.deleteUrl) {
-            const deleteAction = {
-                title: 'Action',
+        let {pageUrl, insertUrl, editUrl, deleteUrl} = props.urls
+        let {queryItems} = props
+        if (editUrl || deleteUrl) {
+            const action = {
+                title: '操作',
                 dataIndex: '', key: 'x',
                 render: (text, record, index) => {
                     this.state.rows.slice(index, 1)
-                    return <a href="javascript:" onClick={() => {
-                        this.deleteRows(record.key)
-                        const rows = this.state.rows.slice(0)
-                        rows.splice(index, 1)
-                        this.setState({
-                            rows: rows
-                        })
-                    }}>Delete</a>
+                    return <div>
+                        {editUrl ? <a href="javascript:" onClick={() => this.edit(record)}>编辑</a> : ''}
+                        {deleteUrl ? <a href="javascript:" onClick={() => this.delete(record.key)}>删除</a> : ''}
+                    </div>
                 }
             }
-            columns.push(deleteAction)
+            columns.push(action)
         }
+        if (insertUrl)
+            this.btnTools.push(<Button key='editBtn' type="primary" onClick={() => this.add()}>添加</Button>)
+        if (deleteUrl)
+            this.btnTools.push(<Button key='delBtn' type="danger" onClick={() => this.batchDelete()}>删除</Button>)
         this.state = {
             sortedInfo: sortedInfo,
-            pageNo: 1,
-            pageSize: 10,
+            pageSize: props.pageSize ? props.pageSize : 10,
             scroll: props.scroll ? props.scroll : {},
-            columns: columns
+            columns: columns,
+            pageUrl: pageUrl,
+            insertUrl: insertUrl,
+            editUrl: editUrl,
+            deleteUrl: deleteUrl,
+            queryForm: queryItems && queryItems.length ? <QueryForm
+                items={this.props.queryItems}
+                onSubmit={(values) => {
+                    this.query(values)
+                }}
+            /> : null
         }
+        this.params.pageNo = 1
+        this.params.pageSize = this.state.pageSize
+        this.pageList()
+    }
 
-        if (props.pageAction) {
-            props.getPage(props.pageAction.type, {
-                pageNo: this.state.pageNo,
-                pageSize: this.state.pageSize
-            }, props.pageAction.url)
+    /**
+     * 获取列表数据
+     */
+    pageList = () => {
+        const data = fetch(this.state.pageUrl, this.params, 'POST')
+        const _this = this
+        data.then(data => {
+            if (data && data.code === 0) {
+                const page = data.message
+                IdToKey(page.list)
+                _this.setState({
+                    pageTotal: page.total,
+                    rows: page.list,
+                    pageSize: page.pageSize
+                })
+            }
+        })
+    }
+
+    delete = (rowIds) => {
+        const data = fetch(this.state.deleteUrl, {rowIds: rowIds}, 'POST')
+        data.then(data => {
+            if (data && data.code === 0) {
+                const ids = rowIds.split(',')
+                const rows = this.state.rows.slice(0)
+                const indexes = []
+                rows.map(function (item, index) {
+                    if (ids.includes(item.key)) {
+                        indexes.push(index)
+                    }
+                })
+                indexes.map(function (item) {
+                    rows.splice(item, 1)
+                })
+                this.setState({
+                    rows: rows
+                })
+            }
+        })
+    }
+
+    setForm = (form) => {
+        this.setState({
+            form: form
+        })
+        if (form) {
+
+            if (this.state.formValues) {
+                form.props.form.setFieldsValue(this.state.formValues)
+            } else {
+                const values = {}
+                this.props.formItems.map((i) => {
+                    values[i.key] = i.value
+                })
+                form.props.form.setFieldsValue(values)
+            }
         }
+    }
 
+    batchDelete = () => {
+        console.log('batchDelete')
+    }
+    add = () => {
+        this.setState({
+            modalContent: <TableForm
+                items={this.props.formItems}
+                onSubmit={(values) => {
+                    this.query(values)
+                }}
+                wrappedComponentRef={(formRef) => {
+                    this.setForm(formRef)
+                }}
+            />,
+            modalVisible: true,
+            formValues: null,
+            formType: 'add',
+            modalTitle: '新增'
+        })
+    }
+
+    edit = (record) => {
+        this.setState({
+            modalContent: <TableForm
+                items={this.props.formItems}
+                onSubmit={(values) => {
+                    this.query(values)
+                }}
+                wrappedComponentRef={(formRef) => {
+                    this.setForm(formRef)
+                }}
+            />,
+            modalVisible: true,
+            formValues: record,
+            formType: 'edit',
+            modalTitle: '编辑'
+        })
+    }
+
+    submitForm = () => {
+        this.state.form.props.form.validateFields((err, values) => {
+            switch (this.state.formType) {
+                case 'add':
+                    this.submitAdd(values)
+                    break
+                case 'edit':
+                    this.submitEdit(values)
+                    break
+            }
+
+        })
+    }
+    submitAdd = (params) => {
+        const data = fetch(this.state.insertUrl, params, 'POST')
+        data.then(data => {
+            if (data && data.code === 0) {
+                const rows = this.state.rows.slice(0)
+                params.key = data.message
+                rows.splice(rows.length - 1, 1)
+                rows.splice(0, 0, params)
+                this.setState({
+                    rows: rows,
+                    modalVisible: false
+                })
+            }
+        })
+    }
+
+    submitEdit = (params) => {
+        const data = fetch(this.state.editUrl, params, 'POST')
+        data.then(data => {
+            if (data && data.code === 0) {
+                const rows = this.state.rows.slice(0)
+                var index
+                rows.map((i, ind) => {
+                    if (i.key === params.id) {
+                        index = ind
+                        return
+                    }
+                })
+                params.key = params.id
+                rows.splice(index, 1, params)
+                rows.splice(rows.length - 1, 1)
+                rows.splice(0, 0, params)
+                this.setState({
+                    rows: rows,
+                    modalVisible: false
+                })
+            }
+        })
     }
 
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.page) {
-            const page = nextProps.page
-            this.setState({
-                pageTotal: page.total,
-                rows: page.list,
-                pageSize: page.pageSize
-            })
-        }
-    }
-
-    deleteRows = (rowIds) => {
-
+    query = (params) => {
+        params.pageNo = this.params.pageNo
+        params.pageSize = this.params.pageSize
+        params.field = this.params.field
+        params.order = this.params.order
+        this.params = params
+        this.pageList()
     }
 
     handleChange = (pagination, filters, sorter) => {
         if (pagination) {
-            this.setState({
-                pageNo: pagination.current,
-                pageSize: pagination.pageSize
-            })
+            this.params.pageNo = pagination.current
+            this.params.pageSize = pagination.pageSize
         }
         if (sorter) {
-            this.setState({
-                field: sorter.field,
-                order: sorter.order
-            })
+            this.params.field = sorter.field
+            this.params.order = sorter.order ? (sorter.order === 'ascend' ? 'ASC' : 'DESC') : sorter.order
         }
-        this.props.getPage(this.props.pageAction.type, {
-            pageNo: pagination.current,
-            pageSize: pagination.pageSize,
-            field: sorter.field,
-            order: sorter.order ? (sorter.order === 'ascend' ? 'ASC' : 'DESC') : sorter.order
-        }, this.props.pageAction.url)
-        this.setState({
-            sortedInfo: sorter
-        })
+        this.pageList()
     }
 
     rowSelection = {
@@ -98,14 +242,22 @@ class DataTable extends BaseComponent {
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name,
+            name: record.name
         }),
     }
 
     render() {
         return (
             <div>
-                <div className="table-operations">
+                <div>
+                    <div className="table-operations">
+                        {
+                            this.btnTools.map(function (item) {
+                                return item
+                            })
+                        }
+                    </div>
+                    {this.state.queryForm}
                 </div>
                 <Table columns={this.state.columns}
                        dataSource={this.state.rows}
@@ -122,30 +274,13 @@ class DataTable extends BaseComponent {
                            }
                        }}
                 />
+                <Modal
+                    content={this.state.modalContent} visible={this.state.modalVisible}
+                    onSubmit={this.submitForm}
+                    title={this.state.modalTitle}
+                />
             </div>
         )
     }
 
 }
-export default connect(
-    (state, props) => {
-        if (props.reducer) {
-            const page = state.getIn(props.reducer)
-            return {
-                page
-            }
-        }
-        return {}
-    },
-    (dispatch) => {
-        return {
-            getPage: (type, params, url) => {
-                dispatch({
-                    type: type,
-                    value: params,
-                    url: url
-                })
-            }
-        }
-    }
-)(DataTable)

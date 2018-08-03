@@ -1,13 +1,19 @@
-import React from "react";
-import {connect} from "react-redux";
-import BaseComponent from "../../../common/BaseComponent";
-import "./index.less";
-import {Table} from "antd";
+import React from "react"
+import {connect} from "react-redux"
+import BaseComponent from "../../../common/BaseComponent"
+import "./index.less"
+import {Table} from "antd"
 
 class DataTable extends BaseComponent {
 
     constructor(props) {
         super(props)
+        this.state = {
+            sortedInfo: null,
+            pageNo: 1,
+            pageSize: 10,
+            scroll: props.scroll ? props.scroll : {}
+        }
         props.getPage({
             pageNo: this.state.pageNo,
             pageSize: this.state.pageSize
@@ -26,11 +32,6 @@ class DataTable extends BaseComponent {
         }
     }
 
-    state = {
-        sortedInfo: null,
-        pageNo: 1,
-        pageSize: 10
-    }
 
     handleChange = (pagination, filters, sorter) => {
         if (pagination) {
@@ -49,7 +50,7 @@ class DataTable extends BaseComponent {
             pageNo: pagination.current,
             pageSize: pagination.pageSize,
             field: sorter.field,
-            order: sorter.order
+            order: sorter.order ? (sorter.order === 'ascend' ? 'ASC' : 'DESC') : sorter.order
         })
         this.setState({
             sortedInfo: sorter
@@ -76,18 +77,31 @@ class DataTable extends BaseComponent {
         }, {
             title: 'Age',
             dataIndex: 'age',
-            key:'age'
+            key: 'age'
         }, {
             title: 'Sex',
             dataIndex: 'sex',
-            key:'sex',
+            key: 'sex',
             render: (text, record, index) => {
-                return text == 0?'男':'女'
+                return text == 0 ? '男' : '女'
             }
         }, {
             title: 'Phone',
             dataIndex: 'phone',
             key: 'phone',
+        }, {
+            title: 'Action',
+            dataIndex: '', key: 'x',
+            render: (text, record, index) => {
+                this.state.rows.slice(index, 1)
+                return <a href="javascript:" onClick={() => {
+                    const rows = this.state.rows.slice(0)
+                    rows.splice(index, 1)
+                    this.setState({
+                        rows: rows
+                    })
+                }}>Delete</a>
+            }
         }]
         columns.map(function (row) {
             if (row.key !== 'action') {
@@ -104,7 +118,7 @@ class DataTable extends BaseComponent {
                        dataSource={this.state.rows}
                        onChange={this.handleChange}
                        rowSelection={this.rowSelection}
-                       // scroll={{y: 400}}
+                       scroll={this.state.scroll}
                        pagination={{
                            total: this.state.pageTotal,
                            pageSize: this.state.pageSize,

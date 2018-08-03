@@ -4,7 +4,7 @@ import {Layout} from 'antd'
 import './content.less'
 
 import community from '../pages/community'
-import table from '../pages/table/test'
+import student from '../pages/student'
 import tools from '../pages/tools'
 
 const {Content} = Layout
@@ -17,7 +17,7 @@ export default class Contents extends React.Component {
         const permissions = JSON.parse(window.sessionStorage.getItem('user')).permissions
         const routes = []
         this.checkRoute(routes,permissions,'community',community)
-        this.checkRoute(routes,permissions,'table',table)
+        this.checkRoute(routes,permissions,'table',student)
         this.checkRoute(routes,permissions,'tools',tools)
         this.state = {
             routes:routes
