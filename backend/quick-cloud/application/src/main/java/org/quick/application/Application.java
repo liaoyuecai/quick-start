@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -22,6 +23,10 @@ public class Application {
     @Bean(name = "txManager")
     public PlatformTransactionManager txManager(@Qualifier("dataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
+    }
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
     }
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

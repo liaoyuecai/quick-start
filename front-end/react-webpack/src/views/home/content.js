@@ -5,7 +5,7 @@ import './content.less'
 
 import community from '../pages/community'
 import student from '../pages/student'
-import tools from '../pages/tools'
+import socket from '../pages/socket'
 
 const {Content} = Layout
 
@@ -18,7 +18,7 @@ export default class Contents extends React.Component {
         const routes = []
         this.checkRoute(routes,permissions,'community',community)
         this.checkRoute(routes,permissions,'table',student)
-        this.checkRoute(routes,permissions,'tools',tools)
+        this.checkRoute(routes,permissions,'socket',socket)
         this.state = {
             routes:routes
         }

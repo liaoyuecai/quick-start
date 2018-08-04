@@ -14,7 +14,7 @@ public interface StudentMapper {
 
     int deleteByPrimaryKey(String id);
 
-    int deleteByPrimaryKeys(List<String> ids);
+    int deleteByPrimaryKeys(@Param("ids") List<String> ids);
 
     int insert(Student record);
 

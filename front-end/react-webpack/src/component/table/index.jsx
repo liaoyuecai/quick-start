@@ -3,6 +3,7 @@ import BaseComponent from "../../common/BaseComponent"
 import "./index.less"
 import {Button, Table} from "antd"
 import fetch from "../../common/utils/fetch"
+import {info} from "../../common/utils/dialog"
 import {IdToKey} from "../../common/utils/format"
 import Modal from "../modal"
 import QueryForm from "../form/query"
@@ -83,7 +84,7 @@ export default class DataTable extends BaseComponent {
     }
 
     delete = (rowIds) => {
-        const data = fetch(this.state.deleteUrl, {rowIds: rowIds}, 'POST')
+        const data = fetch(this.state.deleteUrl, {ids: rowIds}, 'POST')
         data.then(data => {
             if (data && data.code === 0) {
                 const ids = rowIds.split(',')
@@ -109,12 +110,16 @@ export default class DataTable extends BaseComponent {
             form: form
         })
         if (form) {
-
             if (this.state.formValues) {
-                form.props.form.setFieldsValue(this.state.formValues)
+                const values = {}
+                form.props.items.map((i) => {
+                    values[i.key] = this.state.formValues[i.key]
+                })
+                values.id = this.state.formValues.key
+                form.props.form.setFieldsValue(values)
             } else {
                 const values = {}
-                this.props.formItems.map((i) => {
+                form.props.items.map((i) => {
                     values[i.key] = i.value
                 })
                 form.props.form.setFieldsValue(values)
@@ -123,9 +128,14 @@ export default class DataTable extends BaseComponent {
     }
 
     batchDelete = () => {
-        console.log('batchDelete')
+        if (this.state.selectedRowKeys) {
+            this.delete(this.state.selectedRowKeys)
+        } else {
+            info('请选择先勾选需要删除的数据')
+        }
     }
     add = () => {
+        console.log('aa')
         this.setState({
             modalContent: <TableForm
                 items={this.props.formItems}
@@ -144,9 +154,11 @@ export default class DataTable extends BaseComponent {
     }
 
     edit = (record) => {
+        const item = this.props.formItems.slice(0)
+        item.push({key: 'id'})
         this.setState({
             modalContent: <TableForm
-                items={this.props.formItems}
+                items={item}
                 onSubmit={(values) => {
                     this.query(values)
                 }}
@@ -180,7 +192,8 @@ export default class DataTable extends BaseComponent {
             if (data && data.code === 0) {
                 const rows = this.state.rows.slice(0)
                 params.key = data.message
-                rows.splice(rows.length - 1, 1)
+                if (rows.length === this.state.pageSize)
+                    rows.splice(rows.length - 1, 1)
                 rows.splice(0, 0, params)
                 this.setState({
                     rows: rows,
@@ -238,11 +251,11 @@ export default class DataTable extends BaseComponent {
 
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+            this.setState({selectedRowKeys: selectedRowKeys, modalVisible: false})
         },
         getCheckboxProps: record => ({
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name
+            disabled: record.disabled,
+            name: record.name,
         }),
     }
 
@@ -262,7 +275,7 @@ export default class DataTable extends BaseComponent {
                 <Table columns={this.state.columns}
                        dataSource={this.state.rows}
                        onChange={this.handleChange}
-                       rowSelection={this.rowSelection}
+                       rowSelection={this.props.deleteUrl ? this.rowSelection : null}
                        scroll={this.state.scroll}
                        pagination={{
                            total: this.state.pageTotal,

@@ -36,10 +36,10 @@ class Table extends BaseComponent {
 
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows)
+            this.setState({selectedRowKeys:selectedRowKeys})
         },
         getCheckboxProps: record => ({
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
+            disabled: record.disabled,
             name: record.name,
         }),
     }

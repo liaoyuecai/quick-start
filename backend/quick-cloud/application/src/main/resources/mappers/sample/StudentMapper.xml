@@ -110,10 +110,11 @@
   </delete>
     <delete id="deleteByPrimaryKeys" parameterType="java.lang.String">
         delete from student
-        where id IN
+        where id IN (
         <foreach collection="ids" index="index" item="record" separator=",">
             #{record,jdbcType=VARCHAR}
         </foreach>
+        )
     </delete>
     <delete id="deleteByExample" parameterType="org.quick.application.modules.sample.bean.StudentExample">
         delete from student

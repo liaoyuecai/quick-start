@@ -29,9 +29,9 @@ export default class Student extends BaseComponent {
 
         const urls = {
             pageUrl: 'http://localhost:7073/application/sample/student/studentPage',
-            deleteUrl: 'http://localhost:7073/application/sample/student/deleted',
+            deleteUrl: 'http://localhost:7073/application/sample/student/delete',
             insertUrl: 'http://localhost:7073/application/sample/student/insert',
-            editUrl: 'http://localhost:7073/application/sample/student/insert'
+            editUrl: 'http://localhost:7073/application/sample/student/update'
         }
         const formItems = [{
             key: 'name', title: '姓名', required: true, message: '姓名不能为空'

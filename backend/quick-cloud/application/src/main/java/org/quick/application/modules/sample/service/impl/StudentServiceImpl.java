@@ -40,4 +40,20 @@ public class StudentServiceImpl implements StudentService {
         }
         throw new RuntimeException(new DataException("参数异常,删除学生表id不能为空"));
     }
+
+    @Override
+    public String insert(Student student) {
+        int i = studentMapper.insert(student);
+        if (i != 1)
+            throw new RuntimeException("新增学生数据异常,请联系管理员");
+        return student.getId();
+    }
+
+    @Override
+    public int update(Student student) {
+        int i = studentMapper.updateByPrimaryKey(student);
+        if (i != 1)
+            throw new RuntimeException("修改学生数据异常,请联系管理员");
+        return i;
+    }
 }

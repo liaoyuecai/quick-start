@@ -1,7 +1,9 @@
 package org.quick.application.modules.sample.bean;
 
+import java.util.UUID;
+
 public class Student {
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     private String name;
 

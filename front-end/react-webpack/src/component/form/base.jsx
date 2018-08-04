@@ -1,7 +1,8 @@
 import React from "react"
 import BaseComponent from "../../common/BaseComponent"
 import "./query.less"
-import {Form, Col, Input, InputNumber,Select} from 'antd'
+import {Form, Col, Input, InputNumber, Select} from 'antd'
+
 const FormItem = Form.Item
 const Option = Select.Option
 
@@ -21,7 +22,7 @@ export default class BaseForm extends BaseComponent {
     inputQItem = (item) => {
         const {getFieldDecorator} = this.props.form
         return <Col span={item.span ? item.span : 4} style={{marginRight: 5}} key={item.key}>
-            <FormItem >
+            <FormItem>
                 {getFieldDecorator(item.key, {})(
                     <Input placeholder={item.title ? item.title : ''}/>
                 )}
@@ -31,7 +32,7 @@ export default class BaseForm extends BaseComponent {
     inputQNumberItem = (item) => {
         const {getFieldDecorator} = this.props.form
         return <Col span={item.span ? item.span : 4} style={{marginRight: 5}} key={item.key}>
-            <FormItem >
+            <FormItem>
                 {getFieldDecorator(item.key, {})(
                     <InputNumber placeholder={item.title ? item.title : ''}/>
                 )}
@@ -42,7 +43,7 @@ export default class BaseForm extends BaseComponent {
     inputTItem = (item) => {
         const {getFieldDecorator} = this.props.form
         return <FormItem key={item.key} {...this.formItemLayout}
-                         label={item.title}>
+                         label={item.title ? item.title : ''} style={{display: item.key === 'id' ? 'none' : 'block'}}>
             {getFieldDecorator(item.key, {
                 rules: [{
                     required: item.required ? item.required : false, message: item.message ? item.message : '',
@@ -75,7 +76,7 @@ export default class BaseForm extends BaseComponent {
             options.push(<Option key={i.key} value={i.key}>{i.value}</Option>)
         })
         return <Col span={item.span ? item.span : 4} style={{marginRight: 5}} key={item.key}>
-            <FormItem >
+            <FormItem>
                 {getFieldDecorator(item.key, {})(
                     <Select>
                         {options}

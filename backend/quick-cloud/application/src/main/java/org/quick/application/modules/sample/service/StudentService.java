@@ -11,4 +11,8 @@ public interface StudentService {
 
     List<String> deleteByIds(String ids);
 
+    String insert(Student student);
+
+    int update(Student student);
+
 }
