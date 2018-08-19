@@ -48,7 +48,6 @@ public class SecurityInterceptor extends AbstractSecurityInterceptor implements 
 
     @Override
     public void destroy() {
-        System.out.println(33333);
     }
 
     @Override

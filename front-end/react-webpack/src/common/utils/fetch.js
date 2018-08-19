@@ -81,6 +81,7 @@ export default async (url = '',
                 setTimeout(() => reject(new Error('request timeout')), timeout || 5 * 1000)
             }),
         ]).then((response) => {
+            console.log(response)
             if (response.status !== 200) {
                 warning("系统异常,请联系管理员!")
                 return null
