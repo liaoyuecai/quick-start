@@ -1,0 +1,13 @@
+server:
+  port: 7666
+
+
+
+spring:
+  application:
+    name: config
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
